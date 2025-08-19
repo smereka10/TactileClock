@@ -33,5 +33,5 @@ different durations, marked by the number of dots in the examples above. A singl
 pause between two vibrations, two dots symbolize the separation of two digits within the hour and
 minute field and three dots split hours and minutes.
 
-This app is also available in the [Play Store](https://play.google.com/store/apps/details?id=de.eric_scheibler.tactileclock&hl=en).
+This app is also available in the [Play Store](https://play.google.com/store/apps/details?id=de.eric_scheibler.tactileclock&hl=en) and at [IzzyOnDroid](https://apt.izzysoft.de/packages/de.eric_scheibler.tactileclock).
 
