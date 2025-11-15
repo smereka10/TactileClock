@@ -55,6 +55,7 @@ public class SettingsManager {
     public static final boolean DEFAULT_FIRST_START = true;
     public static final boolean DEFAULT_ASKED_FOR_NOTIFICATION_PERMISSION = false;
     public static final boolean DEFAULT_MAX_STRENGTH_VIBRATIONS_ENABLED = true;
+
     // power button
     public static final boolean DEFAULT_POWER_BUTTON_SERVICE_ENABLED = true;
     public static final boolean DEFAULT_POWER_BUTTON_ERROR_VIBRATION = true;
@@ -63,6 +64,7 @@ public class SettingsManager {
     public static final long DEFAULT_POWER_BUTTON_UPPER_ERROR_BOUNDARY = 1000;
     public static final long DEFAULT_POWER_BUTTON_LOWER_SUCCESS_BOUNDARY = 250;
     public static final long DEFAULT_POWER_BUTTON_UPPER_SUCCESS_BOUNDARY = 1350;
+
     // watch
     public static final boolean DEFAULT_WATCH_ENABLED = false;
     public static final int DEFAULT_WATCH_VIBRATION_INTERVAL = 5;
@@ -70,11 +72,35 @@ public class SettingsManager {
     public static final boolean DEFAULT_WATCH_START_AT_NEXT_FULL_HOUR = false;
     public static final boolean DEFAULT_WATCH_ANNOUNCEMENT_VIBRATION = false;
 
+    // vibration durations
+    public static final int DEFAULT_SHORT_VIBRATION = 150;
+    public static final int DEFAULT_LONG_VIBRATION = 500;
+
+    // vibration gap durations
+    public static final int DEFAULT_SHORT_GAP = 250;
+    public static final int DEFAULT_MEDIUM_GAP = 750;
+    public static final int DEFAULT_LONG_GAP = 1250;
+
 	// class variables
+    private static SettingsManager managerInstance;     // singleton
 	private Context context;
 	private SharedPreferences settings;
 
-	public SettingsManager() {
+    public static SettingsManager getInstance() {
+        if (managerInstance == null){
+            managerInstance = getInstanceSynchronized();
+        }
+        return managerInstance;
+    }
+
+    private static synchronized SettingsManager getInstanceSynchronized() {
+        if (managerInstance == null){
+            managerInstance = new SettingsManager();
+        }
+        return managerInstance;
+    }
+
+    private SettingsManager() {
         this.context = ApplicationInstance.getContext();
 		this.settings = PreferenceManager.getDefaultSharedPreferences(context);
 	}
@@ -157,7 +183,7 @@ public class SettingsManager {
     }
 
     public int getShortVibration() {
-        return settings.getInt(KEY_SHORT_VIBRATION, 200);
+        return settings.getInt(KEY_SHORT_VIBRATION, DEFAULT_SHORT_VIBRATION);
     }
 
     public void setShortVibration(int duration) {
@@ -167,7 +193,7 @@ public class SettingsManager {
     }
 
     public int getLongVibration() {
-        return settings.getInt(KEY_LONG_VIBRATION, 500);
+        return settings.getInt(KEY_LONG_VIBRATION, DEFAULT_LONG_VIBRATION);
     }
 
     public void setLongVibration(int duration) {
@@ -177,7 +203,7 @@ public class SettingsManager {
     }
 
     public int getShortGap() {
-        return settings.getInt(KEY_SHORT_GAP, 250);
+        return settings.getInt(KEY_SHORT_GAP, DEFAULT_SHORT_GAP);
     }
 
     public void setShortGap(int duration) {
@@ -187,11 +213,11 @@ public class SettingsManager {
     }
 
     public int getMediumGap() {
-        return settings.getInt(KEY_MEDIUM_GAP, 750);
+        return settings.getInt(KEY_MEDIUM_GAP, DEFAULT_MEDIUM_GAP);
     }
 
     public int getLongGap() {
-        return settings.getInt(KEY_LONG_GAP, 1250);
+        return settings.getInt(KEY_LONG_GAP, DEFAULT_LONG_GAP);
     }
 
 

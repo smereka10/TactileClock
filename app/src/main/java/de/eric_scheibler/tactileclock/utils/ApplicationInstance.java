@@ -47,7 +47,7 @@ public class ApplicationInstance extends Application {
         // wait for a few seconds to prevent ForegroundServiceStartNotAllowedException after boot completed
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
-                SettingsManager settingsManagerInstance = new SettingsManager();
+                SettingsManager settingsManagerInstance = SettingsManager.getInstance();
                 boolean wasWatchEnabled = settingsManagerInstance.isWatchEnabled();
                 settingsManagerInstance.disableWatch();
                 if (wasWatchEnabled

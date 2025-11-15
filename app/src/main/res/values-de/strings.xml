@@ -80,11 +80,17 @@
     <string name="labelHourFormat">Wähle zwischen 12 und 24 Stunden Zeitformat</string>
     <string name="button12Hours">12 Stunden Format</string>
     <string name="button24Hours">24 Stunden Format</string>
-    <string name="labelShort">Kurz</string>
-    <string name="labelLong">Lange</string>
     <string name="labelTimeComponentOrder">Reihenfolge von Stunden und Minuten</string>
     <string name="buttonHoursMinutes">Erst Stunden, dann Minuten</string>
     <string name="buttonMinutesHours">Erst Minuten, dann Stunden</string>
+    <string name="labelVibrationDurations">Vibrationsdauer</string>
+    <string name="labelShort">Kurz</string>
+    <string name="labelShortCD">Kurze Vibration</string>
+    <string name="labelLong">Lang</string>
+    <string name="labelLongCD">Lange Vibration</string>
+    <string name="labelTestVibrationHeading">Uhrzeitvibration testen</string>
+    <string name="buttonRefreshTestTime">Uhrzeit aktualisieren</string>
+    <string name="buttonTestVibration">Test</string>
 
     <!-- info activity -->
     <string name="infoActivityTitle">Info</string>

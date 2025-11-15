@@ -4,9 +4,6 @@
     <!-- default: black-->
     <color name="text">#000000</color>
 
-    <!-- divider: black-->
-    <color name="divider">#000000</color>
-
     <!-- headings: red -->
     <color name="heading">#d70000</color>
 

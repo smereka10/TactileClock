@@ -40,7 +40,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId());
-        settingsManagerInstance = new SettingsManager();
+        settingsManagerInstance = SettingsManager.getInstance();
         getSupportFragmentManager()
             .setFragmentResultListener(
                     HelpDialog.REQUEST_DIALOG_CLOSED, this, this);

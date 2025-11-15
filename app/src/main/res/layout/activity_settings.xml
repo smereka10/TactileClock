@@ -7,6 +7,7 @@
 
     <include
         layout="@layout/layout_toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:focusable="true"
-                android:text="@string/labelHourFormat" />
+                android:text="@string/labelHourFormat"
+                android:theme="@style/HeadingTextView" />
 
             <RadioGroup
                 android:id="@+id/radioHourFormat"
@@ -56,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:focusable="true"
-                android:text="@string/labelTimeComponentOrder" />
+                android:text="@string/labelTimeComponentOrder"
+                android:theme="@style/HeadingTextView" />
 
             <RadioGroup
                 android:id="@+id/radioTimeComponentOrder"
@@ -82,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:focusable="true"
-                android:text="@string/labelShortcutVibrateTime" />
+                android:text="@string/labelVibrationDurations"
+                android:theme="@style/HeadingTextView" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -91,14 +95,17 @@
                 <TableRow android:gravity="center_vertical">
 
                     <TextView
+                        android:labelFor="@+id/seekBarShort"
                         android:layout_height="wrap_content"
-                        android:text="@string/labelShort" />
+                        android:text="@string/labelShort"
+                        android:contentDescription="@string/labelShortCD" />
 
                     <SeekBar
                         android:id="@+id/seekBarShort"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:min="10"
                         android:max="80" />
 
                     <TextView
@@ -106,21 +113,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:minEms="3"
-                        android:text="50 ms" />
+                        android:minEms="3" />
                 </TableRow>
 
                 <TableRow android:gravity="center_vertical">
 
                     <TextView
+                        android:labelFor="@+id/seekBarLong"
                         android:layout_height="wrap_content"
-                        android:text="@string/labelLong" />
+                        android:text="@string/labelLong"
+                        android:contentDescription="@string/labelLongCD" />
 
                     <SeekBar
                         android:id="@+id/seekBarLong"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:min="20"
                         android:max="160" />
 
                     <TextView
@@ -128,8 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:minEms="3"
-                        android:text="250 ms" />
+                        android:minEms="3" />
                 </TableRow>
             </TableLayout>
 
@@ -141,21 +149,43 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical" >
 
-        <TextClock
-            android:id="@+id/textClock"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:focusable="true"
+            android:text="@string/labelTestVibrationHeading"
+            android:theme="@style/HeadingTextView" />
 
-        <Button
-            android:id="@+id/buttonTest"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="?attr/colorAccent"
-            android:text="Test" />
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textClock"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="2" />
+
+            <Button
+                android:id="@+id/buttonRefresh"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:drawableLeft="@drawable/ic_refresh"
+                android:contentDescription="@string/buttonRefreshTestTime" />
+
+            <Button
+                android:id="@+id/buttonTest"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:backgroundTint="?attr/colorAccent"
+                android:text="@string/buttonTestVibration" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

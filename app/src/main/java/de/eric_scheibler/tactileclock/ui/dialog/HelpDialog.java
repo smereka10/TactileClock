@@ -30,7 +30,7 @@ public class HelpDialog extends DialogFragment {
 
     @Override public void onAttach(Context context){
         super.onAttach(context);
-        settingsManagerInstance = new SettingsManager();
+        settingsManagerInstance = SettingsManager.getInstance();
     }
 
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {

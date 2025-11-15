@@ -45,7 +45,7 @@ public class WatchFragment extends Fragment implements IntegerSelector {
 
 	@Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settingsManagerInstance = new SettingsManager();
+        settingsManagerInstance = SettingsManager.getInstance();
 	}
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

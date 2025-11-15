@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="HeadingTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:accessibilityHeading">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
