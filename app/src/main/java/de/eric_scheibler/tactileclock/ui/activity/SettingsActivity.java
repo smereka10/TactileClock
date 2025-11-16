@@ -29,7 +29,7 @@ import androidx.core.view.ViewCompat;
 
 public class SettingsActivity extends AbstractActivity implements TimePickerDialog.OnTimeSetListener {
 
-    private SwitchCompat switchMaxStrengthVibrations;
+    private SwitchCompat switchMaxStrengthVibrations, switchRoundMinutes;
     private RadioGroup radioHourFormat, radioTimeComponentOrder;
     private SeekBar seekBarShort, seekBarLong; // Step of 5
     private TextView textViewShortValue, textViewLongValue, textClock;
@@ -58,11 +58,10 @@ public class SettingsActivity extends AbstractActivity implements TimePickerDial
                 getResources().getString(R.string.settingsActivityTitle));
 
         switchMaxStrengthVibrations = (SwitchCompat) findViewById(R.id.switchMaxStrengthVibrations);
+        switchMaxStrengthVibrations.setChecked(settingsManagerInstance.getMaxStrengthVibrationsEnabled());
         switchMaxStrengthVibrations.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-                if (isChecked != settingsManagerInstance.getMaxStrengthVibrationsEnabled()) {
-                    settingsManagerInstance.setMaxStrengthVibrationsEnabled(isChecked);
-                }
+                settingsManagerInstance.setMaxStrengthVibrationsEnabled(isChecked);
             }
         });
 
@@ -91,6 +90,17 @@ public class SettingsActivity extends AbstractActivity implements TimePickerDial
                     settingsManagerInstance.setTimeComponentOrder(TimeComponentOrder.MINUTES_HOURS);
                 }
                 updateUI();
+            }
+        });
+
+        // Round minutes to 5
+        switchRoundMinutes = (SwitchCompat) findViewById(R.id.switchRoundMinutes);
+        switchRoundMinutes.setChecked(settingsManagerInstance.getWatchRoundMinutes());
+        switchRoundMinutes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                settingsManagerInstance.setWatchRoundMinutes(isChecked);
+                // Refresh time to see changes
+                buttonRefresh.performClick();
             }
         });
 
@@ -238,8 +248,6 @@ public class SettingsActivity extends AbstractActivity implements TimePickerDial
     }
 
     private void updateUI() {
-        switchMaxStrengthVibrations.setChecked(settingsManagerInstance.getMaxStrengthVibrationsEnabled());
-
         boolean is12HourFormat = settingsManagerInstance.getHourFormat() == HourFormat.TWELVE_HOURS;
         boolean isMinutesFirst = settingsManagerInstance.getTimeComponentOrder() == TimeComponentOrder.MINUTES_HOURS;
 
@@ -247,10 +255,13 @@ public class SettingsActivity extends AbstractActivity implements TimePickerDial
         textViewLongValue.setText(settingsManagerInstance.getLongVibration() + " ms");
 
         // Update textClock
+        // - Round minutes
+        if (settingsManagerInstance.getWatchRoundMinutes())
+            testMinute = Math.round(testMinute / 5) * 5;
+        // - Format time
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, testHour);
         calendar.set(Calendar.MINUTE, testMinute);
-        //
         String pattern;
         if (is12HourFormat) {
             pattern = isMinutesFirst ? "mm:h a" : "h:mm a";
@@ -258,7 +269,7 @@ public class SettingsActivity extends AbstractActivity implements TimePickerDial
             pattern = isMinutesFirst ? "mm:HH" : "HH:mm";
         }
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, getResources().getConfiguration().locale);
-        //
+        // - Update
         textClock.setText(sdf.format(calendar.getTime()));
     }
 }

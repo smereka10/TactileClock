@@ -46,6 +46,7 @@ public class SettingsManager {
     private static final String KEY_WATCH_ENABLED = "watchEnabled";
     private static final String KEY_WATCH_VIBRATION_INTERVAL = "watchVibrationInterval";
     private static final String KEY_WATCH_ONLY_VIBRATE_MINUTES = "onlyVibrateMinutes";
+    private static final String KEY_WATCH_ROUND_MINUTES = "roundMinutes";
     private static final String KEY_WATCH_START_AT_NEXT_FULL_HOUR = "startAtNextFullHour";
     private static final String KEY_WATCH_ANNOUNCEMENT_VIBRATION = "announcement_vibration";
 
@@ -69,6 +70,7 @@ public class SettingsManager {
     public static final boolean DEFAULT_WATCH_ENABLED = false;
     public static final int DEFAULT_WATCH_VIBRATION_INTERVAL = 5;
     public static final boolean DEFAULT_WATCH_ONLY_VIBRATE_MINUTES = false;
+    public static final boolean DEFAULT_WATCH_ROUND_MINUTES = false;
     public static final boolean DEFAULT_WATCH_START_AT_NEXT_FULL_HOUR = false;
     public static final boolean DEFAULT_WATCH_ANNOUNCEMENT_VIBRATION = false;
 
@@ -204,12 +206,6 @@ public class SettingsManager {
 
     public int getShortGap() {
         return settings.getInt(KEY_SHORT_GAP, DEFAULT_SHORT_GAP);
-    }
-
-    public void setShortGap(int duration) {
-        Editor editor = settings.edit();
-        editor.putInt(KEY_SHORT_GAP, duration);
-        editor.apply();
     }
 
     public int getMediumGap() {
@@ -354,6 +350,20 @@ public class SettingsManager {
         editor.putBoolean(
                 KEY_WATCH_ONLY_VIBRATE_MINUTES,
                 onlyVibrateMinutes);
+        editor.apply();
+    }
+
+    public boolean getWatchRoundMinutes() {
+        return settings.getBoolean(
+                KEY_WATCH_ROUND_MINUTES,
+                DEFAULT_WATCH_ROUND_MINUTES);
+    }
+
+    public void setWatchRoundMinutes(boolean roundMinutes) {
+        Editor editor = settings.edit();
+        editor.putBoolean(
+                KEY_WATCH_ROUND_MINUTES,
+                roundMinutes);
         editor.apply();
     }
 

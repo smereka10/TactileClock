@@ -215,7 +215,7 @@ public class TactileClockService extends Service {
         long LONG_GAP = settingsManagerInstance.getLongGap();
 
         // create vibration pattern
-        long[] pattern = {0}; // start immediately with no gap
+        long[] pattern = {LONG_GAP};
 
         // announcement vibration
         if (announcementVibration) {
@@ -269,8 +269,8 @@ public class TactileClockService extends Service {
         long MEDIUM_GAP = settingsManagerInstance.getMediumGap();
 
         long[] pattern = new long[]{};
-        // only add first digit of hour if it is not a zero
-        if (hours / 10 > 0) {
+        // only add first digit of hour if it's bigger than 9 (Remove leading 0)
+        if (hours > 9) {
             // first number of hour
             pattern = concat(pattern, getVibrationPatternForDigit(hours/10));
             // medium gap between first and second number of hours
@@ -284,11 +284,18 @@ public class TactileClockService extends Service {
     private long[] getVibrationPatternForMinutes(int minutes) {
         long MEDIUM_GAP = settingsManagerInstance.getMediumGap();
 
+        // Round minutes to the nearest multiple of 5 using integer arithmetic.
+        // (minutes + 2) shifts the value so integer division truncates correctly.
+        if (settingsManagerInstance.getWatchRoundMinutes())
+            minutes = (minutes + 2) / 5 * 5;
+
         long[] pattern = new long[]{};
-        // first number of minute
-        pattern = concat(pattern, getVibrationPatternForDigit(minutes/10));
-        // medium gap between first and second number of minutes
-        pattern = concat(pattern, new long[]{MEDIUM_GAP});
+        if (minutes > 9) {
+            // First number of minute
+            pattern = concat(pattern, getVibrationPatternForDigit(minutes / 10));
+            // medium gap between first and second number of minutes
+            pattern = concat(pattern, new long[]{MEDIUM_GAP});
+        }
         // second number of minute
         pattern = concat(pattern, getVibrationPatternForDigit(minutes%10));
         return pattern;
