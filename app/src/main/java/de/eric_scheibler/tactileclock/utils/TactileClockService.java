@@ -215,6 +215,17 @@ public class TactileClockService extends Service {
     private void vibrateTime(boolean announcementVibration, boolean minutesOnly, int hours, int minutes) {
         long LONG_GAP = settingsManagerInstance.getLongGap();
 
+        // Round minutes to the nearest multiple of 5 using integer arithmetic.
+        // (minutes + 2) shifts the value so integer division truncates correctly.
+        if (settingsManagerInstance.getWatchRoundMinutes())
+            minutes = (minutes + 2) / 5 * 5;
+
+        // Increase hour if minutes rounded to 60
+        if (minutes == 60){
+            minutes = 0;
+            hours++;
+        }
+
         // create vibration pattern
         long[] pattern = {LONG_GAP};
 
@@ -284,11 +295,6 @@ public class TactileClockService extends Service {
 
     private long[] getVibrationPatternForMinutes(int minutes) {
         long MEDIUM_GAP = settingsManagerInstance.getMediumGap();
-
-        // Round minutes to the nearest multiple of 5 using integer arithmetic.
-        // (minutes + 2) shifts the value so integer division truncates correctly.
-        if (settingsManagerInstance.getWatchRoundMinutes())
-            minutes = (minutes + 2) / 5 * 5;
 
         long[] pattern = new long[]{};
         if (minutes > 9) {
