@@ -96,6 +96,7 @@ public class TactileClockService extends Service {
                 }
 
             } else if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
+                vibrator.cancel(); // vibration will be canceled if screen is turned on while vibrating
                 long activationTimeDifference = System.currentTimeMillis() - lastActivation;
                 Timber.d("diff: %1$d = %2$d - %3$d", activationTimeDifference, System.currentTimeMillis(), lastActivation);
                 if (settingsManagerInstance.getPowerButtonServiceEnabled()
