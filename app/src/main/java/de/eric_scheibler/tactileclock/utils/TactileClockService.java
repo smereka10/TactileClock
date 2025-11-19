@@ -187,27 +187,15 @@ public class TactileClockService extends Service {
     /**
      * vibration pattern functions
      */
-
     private void vibrateTime(boolean announcementVibration, boolean minutesOnly, boolean testTime) {
-        if (testTime) {
-            vibrateTime(announcementVibration, minutesOnly, TEST_HOUR, TEST_MINUTE);
-            return;
-        }
+        int hours = testTime ? TEST_HOUR : Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int minutes = testTime ? TEST_MINUTE : Calendar.getInstance().get(Calendar.MINUTE);
 
-        // get current time
-        int hours, minutes;
-        Calendar c = Calendar.getInstance();
-        if (settingsManagerInstance.getHourFormat() == HourFormat.TWELVE_HOURS) {
-            // 12 hour format
-            hours = c.get(Calendar.HOUR);
-            if (hours == 0)
-                hours = 12;
-        } else {
-            // 24 hour format
-            hours = c.get(Calendar.HOUR_OF_DAY);
-        }
-        minutes = c.get(Calendar.MINUTE);
+        // Convert to 12 hour format
+        if (settingsManagerInstance.getHourFormat() == HourFormat.TWELVE_HOURS && hours > 12)
+            hours -= 12;
 
+        // vibrate time
         vibrateTime(announcementVibration, minutesOnly, hours, minutes);
     }
 
