@@ -1,7 +1,7 @@
 package de.eric_scheibler.tactileclock.utils;
 
-            import android.os.Handler;
-            import android.os.Looper;
+import android.os.Handler;
+import android.os.Looper;
 import java.util.Calendar;
 
 import android.annotation.TargetApi;
@@ -16,11 +16,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 
 import android.os.Build;
 import android.os.IBinder;
-
-import androidx.core.app.NotificationCompat;
 
 import de.eric_scheibler.tactileclock.R;
 import de.eric_scheibler.tactileclock.data.HourFormat;
@@ -30,6 +29,7 @@ import timber.log.Timber;
 import android.annotation.SuppressLint;
 import android.content.pm.ServiceInfo;
 import androidx.core.app.ServiceCompat;
+import androidx.core.app.NotificationCompat;
 import android.app.ForegroundServiceStartNotAllowedException;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -41,6 +41,7 @@ public class TactileClockService extends Service {
     public static final String ACTION_VIBRATE_TIME = "de.eric_scheibler.tactileclock.action.vibrate_time";
     public static final String ACTION_VIBRATE_TEST_TIME = "de.eric_scheibler.tactileclock.action.vibrate_test_time";
     public static final String ACTION_VIBRATE_TIME_AND_SET_NEXT_ALARM = "de.eric_scheibler.tactileclock.action.vibrate_time_and_set_next_alarm";
+    public static final String ACTION_PLAY_GTS = "de.eric_scheibler.tactileclock.action.play_gts";
 
     // broadcast responses
     public static final String VIBRATION_FINISHED = "de.eric_scheibler.tactileclock.response.vibration_finished";
@@ -141,6 +142,17 @@ public class TactileClockService extends Service {
                 // set next alarm
                 applicationInstance.setAlarmAtFullMinute(
                         settingsManagerInstance.getWatchVibrationIntervalInMinutes());
+
+            } else if (ACTION_PLAY_GTS.equals(intent.getAction())) {
+                // Play sound
+                if (this.isVibrationAllowed()) {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.pips);
+                    mediaPlayer.setOnCompletionListener(MediaPlayer::release);
+                    mediaPlayer.start();
+                }
+
+                // set next alarm
+                applicationInstance.setAlarmForGTS();
             }
         }
     }

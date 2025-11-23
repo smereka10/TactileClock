@@ -30,12 +30,14 @@
     <!-- watch fragment -->
     <string name="fragmentWatch">Reloj</string>
     <string name="labelWatchFragmentHeader">Vibración continua de la hora actual</string>
+    <string name="buttonEnableVibration">Activar vibración</string>
     <string name="buttonStartWatch">Iniciar reloj</string>
     <string name="labelWatchOptions">Opciones:</string>
     <string name="buttonWatchInterval">Intervalo de vibración</string>
     <string name="buttonWatchOnlyVibrateMinutes">Vibrar solo los minutos</string>
     <string name="buttonWatchStartAtNextFullHour">Comenzar en la próxima hora en punto</string>
     <string name="buttonWatchAnnouncementVibration">Vibración de anuncio</string>
+    <string name="buttonPlayGTS">Reproducir Greenwich Time Signal</string>
 
     <!-- select integer dialog -->
     <string name="selectWatchIntervalDialogTitle">Intervalo de vibración en minutos:</string>
@@ -55,7 +57,7 @@
     <string name="labelApplicationDescription3">Existen dos patrones de vibración diferentes:\nUna vibración corta representa el dígito 1 y una larga el dígito 5. El 2 se representa con dos vibraciones cortas consecutivas, el 6 con una larga y una corta y así sucesivamente. El 0 constituye una excepción con dos vibraciones largas.</string>
     <string name="labelApplicationDescription4">Ejemplos:\n- 01:18 =  . &#160; .  -...  \n- 02:51 =  .. &#160; -  .  \n- 10:11 =  .  -- &#160; .  . \n- 19:06 =  .  -.... &#160; -.  </string>
     <string name="labelApplicationDescription5">Explicación:\nLa hora se procesa dígito por dígito.\n. = corta, - = larga. Se omite el cero a la izquierda. Para simplificar el reconocimiento del patrón de vibración, existen tres tipos de pausas con diferentes duraciones: una pausa corta [] entre vibraciones en el mismo dígito, una pausa media [  ] para la separación de dos dígitos dentro del campo de la hora y los minutos, y una larga [ &#160;  &#160; ] para dividir horas y minutos.</string>
-
+    <string name="labelApplicationDescription6">La aplicación también permite reproducir la Greenwich Time Signal (popularmente conocido como The Pips) al comienzo de cada hora, como si fuese una emisora de radio.</string>
     <!-- settings activity -->
     <string name="settingsActivityTitle">Ajustes</string>
     <string name="switchMaxStrengthVibrations">Vibrar con intensidad máxima</string>

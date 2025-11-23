@@ -16,50 +16,78 @@
             android:focusable="true"
             android:text="@string/labelWatchFragmentHeader" />
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/buttonStartWatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:textSize="26sp"
             android:text="@string/buttonStartWatch" />
 
-        <TextView
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchEnableVibration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:focusable="true"
-            android:text="@string/labelWatchOptions"
-            android:textStyle="bold"
-            android:textColor="@color/heading"
-            android:accessibilityHeading="true"
-            tools:ignore="UnusedAttribute" />
+            android:checked="true"
+            android:minHeight="@dimen/minHeight"
+            android:text="@string/buttonEnableVibration" />
 
-        <Button
-            android:id="@+id/buttonWatchInterval"
+        <LinearLayout
+            android:id="@+id/containerVibrationOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buttonWatchInterval" />
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp">
 
-        <Switch
-            android:id="@+id/buttonWatchOnlyVibrateMinutes"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:text="@string/labelWatchOptions"
+                android:textStyle="bold"
+                android:textColor="@color/heading"
+                android:accessibilityHeading="true"
+                tools:ignore="UnusedAttribute" />
+
+            <Button
+                android:id="@+id/buttonWatchInterval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonWatchInterval" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/buttonWatchOnlyVibrateMinutes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/minHeight"
+                android:text="@string/buttonWatchOnlyVibrateMinutes" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/buttonWatchStartAtNextFullHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/minHeight"
+                android:text="@string/buttonWatchStartAtNextFullHour" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/buttonWatchAnnouncementVibration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/minHeight"
+                android:text="@string/buttonWatchAnnouncementVibration" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/buttonPlayGTS"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/minHeight"
-            android:text="@string/buttonWatchOnlyVibrateMinutes" />
+            android:text="@string/buttonPlayGTS" />
 
-        <Switch
-            android:id="@+id/buttonWatchStartAtNextFullHour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/minHeight"
-            android:text="@string/buttonWatchStartAtNextFullHour" />
-
-        <Switch
-            android:id="@+id/buttonWatchAnnouncementVibration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/minHeight"
-            android:text="@string/buttonWatchAnnouncementVibration" />
 
     </LinearLayout>
 </ScrollView>

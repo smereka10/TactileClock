@@ -115,27 +115,34 @@ public class ApplicationInstance extends Application {
         return true;
     }
 
+    public boolean setAlarmForGTS() {
+        Calendar calendar = Calendar.getInstance();
+        // Five seconds befor next full hour
+        calendar.setTimeInMillis(System.currentTimeMillis() + 60*60*1000l + 10000l); // Ten second overhead since it's now XX:YY:55
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, -5);
+        return setAlarm(calendar, true);
+    }
+
     public boolean setAlarmAtFullHour(int hours) {
         Calendar calendar = Calendar.getInstance();
         // at full hour
-        calendar.setTimeInMillis(
-                System.currentTimeMillis() + hours*60*60*1000l);
+        calendar.setTimeInMillis(System.currentTimeMillis() + hours*60*60*1000l);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        return setAlarm(calendar);
+        return setAlarm(calendar, false);
     }
 
     public boolean setAlarmAtFullMinute(int minutes) {
         Calendar calendar = Calendar.getInstance();
         // at full minute
-        calendar.setTimeInMillis(
-                System.currentTimeMillis() + minutes*60*1000l);
+        calendar.setTimeInMillis(System.currentTimeMillis() + minutes*60*1000l);
         calendar.set(Calendar.SECOND, 0);
-        return setAlarm(calendar);
+        return setAlarm(calendar, false);
     }
 
     @SuppressLint("MissingPermission")
-    private boolean setAlarm(Calendar calendar) {
+    private boolean setAlarm(Calendar calendar, boolean bGTS) {
         if (! canScheduleExactAlarms()) {
             return false;
         }
@@ -144,7 +151,7 @@ public class ApplicationInstance extends Application {
             + Math.abs(calendar.getTimeInMillis() - System.currentTimeMillis());
 
         // create vibrate time pending intent
-        PendingIntent pendingIntent = createActionVibrateTimeAndSetNextAlarmPendingIntent();
+        PendingIntent pendingIntent = bGTS ? createActionPlayGTSPendingIntent() : createActionVibrateTimeAndSetNextAlarmPendingIntent();
 
         // set alarm
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -158,9 +165,13 @@ public class ApplicationInstance extends Application {
     }
 
     public void cancelAlarm() {
-        // create vibrate time pending intent
+        // Cancel vibration
         PendingIntent pendingIntent = createActionVibrateTimeAndSetNextAlarmPendingIntent();
-        // cancel
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        // Cancel GTS
+        pendingIntent = createActionPlayGTSPendingIntent();
         alarmManager.cancel(pendingIntent);
         pendingIntent.cancel();
     }
@@ -168,6 +179,17 @@ public class ApplicationInstance extends Application {
     private PendingIntent createActionVibrateTimeAndSetNextAlarmPendingIntent() {
         Intent intent = new Intent(this, TactileClockService.class);
         intent.setAction(TactileClockService.ACTION_VIBRATE_TIME_AND_SET_NEXT_ALARM);
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        return PendingIntent.getService(
+                this,
+                PENDING_INTENT_VIBRATE_TIME_ID,
+                intent,
+                getPendingIntentFlags());
+    }
+
+    private PendingIntent createActionPlayGTSPendingIntent() {
+        Intent intent = new Intent(this, TactileClockService.class);
+        intent.setAction(TactileClockService.ACTION_PLAY_GTS);
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         return PendingIntent.getService(
                 this,

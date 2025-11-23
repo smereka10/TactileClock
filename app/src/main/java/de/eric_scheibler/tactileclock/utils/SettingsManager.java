@@ -44,12 +44,13 @@ public class SettingsManager {
     private static final String KEY_POWER_BUTTON_UPPER_SUCCESS_BOUNDARY = "upperSuccessBoundary";
     // watch
     private static final String KEY_WATCH_ENABLED = "watchEnabled";
+    private static final String KEY_WATCH_ENABLE_VIBRATION = "watchEnableVibration";
     private static final String KEY_WATCH_VIBRATION_INTERVAL = "watchVibrationInterval";
     private static final String KEY_WATCH_ONLY_VIBRATE_MINUTES = "onlyVibrateMinutes";
     private static final String KEY_WATCH_ROUND_MINUTES = "roundMinutes";
     private static final String KEY_WATCH_START_AT_NEXT_FULL_HOUR = "startAtNextFullHour";
     private static final String KEY_WATCH_ANNOUNCEMENT_VIBRATION = "announcement_vibration";
-
+    private static final String KEY_WATCH_PLAY_GTS = "playGTS";
 	// defaults
     //
     // general settings
@@ -68,11 +69,13 @@ public class SettingsManager {
 
     // watch
     public static final boolean DEFAULT_WATCH_ENABLED = false;
+    public static final boolean DEFAULT_WATCH_ENABLE_VIBRATION = true;
     public static final int DEFAULT_WATCH_VIBRATION_INTERVAL = 5;
     public static final boolean DEFAULT_WATCH_ONLY_VIBRATE_MINUTES = false;
     public static final boolean DEFAULT_WATCH_ROUND_MINUTES = false;
     public static final boolean DEFAULT_WATCH_START_AT_NEXT_FULL_HOUR = false;
     public static final boolean DEFAULT_WATCH_ANNOUNCEMENT_VIBRATION = false;
+    public static final boolean DEFAULT_WATCH_PLAY_GTS = false;
 
     // vibration durations
     public static final int DEFAULT_SHORT_VIBRATION = 150;
@@ -296,14 +299,19 @@ public class SettingsManager {
 
     public void enableWatch() {
         setWatchEnabled(true);
-        // set first exact watch vibration alarm
-        if (this.getWatchStartAtNextFullHour()) {
-            // at next full hour
-            ((ApplicationInstance) ApplicationInstance.getContext()).setAlarmAtFullHour(1);
-        } else {
-            // at next full minute
-            ((ApplicationInstance) ApplicationInstance.getContext()).setAlarmAtFullMinute(1);
+
+        if (getWatchEnableVibration()){
+            if (this.getWatchStartAtNextFullHour()) {
+                // at next full hour
+                ((ApplicationInstance) ApplicationInstance.getContext()).setAlarmAtFullHour(1);
+            } else {
+                // at next full minute
+                ((ApplicationInstance) ApplicationInstance.getContext()).setAlarmAtFullMinute(1);
+            }
         }
+
+        if (this.getPlayGTS())
+            ((ApplicationInstance) ApplicationInstance.getContext()).setAlarmForGTS();
     }
 
     public void disableWatch() {
@@ -317,7 +325,7 @@ public class SettingsManager {
         editor.putBoolean(
                 KEY_WATCH_ENABLED, enabled);
         editor.apply();
-        // update notivication
+        // update notification
         Intent updateNotificationIntent = new Intent(context, TactileClockService.class);
         updateNotificationIntent.setAction(TactileClockService.ACTION_UPDATE_NOTIFICATION);
         ContextCompat.startForegroundService(context, updateNotificationIntent);
@@ -336,6 +344,20 @@ public class SettingsManager {
         editor.putInt(
                 KEY_WATCH_VIBRATION_INTERVAL,
                 watchVibrationInterval);
+        editor.apply();
+    }
+
+    public boolean getWatchEnableVibration() {
+        return settings.getBoolean(
+                KEY_WATCH_ENABLE_VIBRATION,
+                DEFAULT_WATCH_ENABLE_VIBRATION);
+    }
+
+    public void setWatchEnableVibration(boolean watchEnableVibration) {
+        Editor editor = settings.edit();
+        editor.putBoolean(
+                KEY_WATCH_ENABLE_VIBRATION,
+                watchEnableVibration);
         editor.apply();
     }
 
@@ -395,4 +417,17 @@ public class SettingsManager {
         editor.apply();
     }
 
+    public boolean getPlayGTS() {
+        return settings.getBoolean(
+                KEY_WATCH_PLAY_GTS,
+                DEFAULT_WATCH_PLAY_GTS);
+    }
+
+    public void setPlayGTS(boolean bGTS) {
+        Editor editor = settings.edit();
+        editor.putBoolean(
+                KEY_WATCH_PLAY_GTS,
+                bGTS);
+        editor.apply();
+    }
 }

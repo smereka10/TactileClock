@@ -34,11 +34,13 @@
     <string name="fragmentWatch">Watch</string>
     <string name="labelWatchFragmentHeader">Continuous vibration of the current time</string>
     <string name="buttonStartWatch">Start watch</string>
+    <string name="buttonEnableVibration">Enable vibration</string>
     <string name="labelWatchOptions">Options:</string>
     <string name="buttonWatchInterval">Vibration interval</string>
     <string name="buttonWatchOnlyVibrateMinutes">Vibrate minutes only</string>
     <string name="buttonWatchStartAtNextFullHour">Start at next full hour</string>
     <string name="buttonWatchAnnouncementVibration">Announcement vibration</string>
+    <string name="buttonPlayGTS">Play Greenwich Time Signal</string>
 
     <!-- select integer dialog -->
     <string name="selectWatchIntervalDialogTitle">Vibration interval in minutes:</string>
@@ -69,6 +71,8 @@
         durations: A short gap [] between vibrations in the same digit, a medium gap [  ] for the
         separation of two digits within the hour and minute field, and a long one [ &#160;  &#160; ] to split
         hours and minutes.</string>
+    <string name="labelApplicationDescription6">The app also allows for the Greenwich Time Signal (a.k.a the pips)
+        to be played at the start of each hour, similar to a radio station.</string>
 
     <!-- settings activity -->
     <string name="settingsActivityTitle">Settings</string>
