@@ -1,5 +1,7 @@
 package de.eric_scheibler.tactileclock.ui.fragment;
 
+import android.media.AudioManager;
+import androidx.annotation.RequiresApi;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -16,12 +18,15 @@ import de.eric_scheibler.tactileclock.ui.dialog.SelectIntegerDialog.Token;
 import de.eric_scheibler.tactileclock.ui.dialog.SelectIntegerDialog;
 import de.eric_scheibler.tactileclock.utils.SettingsManager;
 import androidx.fragment.app.Fragment;
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.content.Intent;
 import android.provider.Settings;
 import de.eric_scheibler.tactileclock.utils.ApplicationInstance;
 import androidx.appcompat.widget.SwitchCompat;
+import android.app.NotificationManager;
+import android.widget.Toast;
+import android.content.Context;
+import de.eric_scheibler.tactileclock.utils.TactileClockService;
 
 
 public class WatchFragment extends Fragment implements IntegerSelector {
@@ -217,16 +222,40 @@ public class WatchFragment extends Fragment implements IntegerSelector {
         buttonWatchPlayGTSWhileMusic.setAlpha(alpha);
     }
 
-    @TargetApi(Build.VERSION_CODES.S)
     private void tryToEnableWatch() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (! ApplicationInstance.canScheduleExactAlarms()) {
-                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                startActivity(intent);
-                return;
+        if (ApplicationInstance.canScheduleExactAlarms()) {
+            settingsManagerInstance.enableWatch();
+
+            // show some warnings
+            AudioManager audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && TactileClockService.isDoNotDisturbEnabledForMAndNewer(notificationManager)) {
+                Toast.makeText(
+                        getContext(), R.string.warningDndActive, Toast.LENGTH_LONG)
+                    .show();
+
+            } else if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
+                Toast.makeText(
+                        getContext(), R.string.warningRingerModeSilent, Toast.LENGTH_LONG)
+                    .show();
+            }
+
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                requestScheduleExactAlarmPermissionForSAndNewer();
             }
         }
-        settingsManagerInstance.enableWatch();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private void requestScheduleExactAlarmPermissionForSAndNewer() {
+        // only relevant for version code S
+        // because for TIRAMISU and newer the permission USE_EXACT_ALARM is requested and that one is granted implicetly
+        // therefore for later Android versions the function canScheduleExactAlarms() from above never returns false (see apps manifest for details)
+        Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+        startActivity(intent);
     }
 
 }

@@ -116,8 +116,9 @@
     <string name="dialogCancel">Cancel</string>
     <string name="dialogEnabled">On</string>
     <string name="dialogDisabled">Off</string>
-    <string name="warning_dnd_active">Do Not Disturb is enabled</string>
-    <string name="warning_exact_alarm_permission_missing">Cannot schedule exact alarms. Please check permissions.</string>
+    <string name="warningDndActive">Do Not Disturb is enabled.</string>
+    <string name="warningRingerModeSilent">Phone is in silent mode.</string>
+    <string name="warningExactAlarmPermissionMissing">Cannot schedule exact alarms. Please check permissions.</string>
 
     <!--
          plurals

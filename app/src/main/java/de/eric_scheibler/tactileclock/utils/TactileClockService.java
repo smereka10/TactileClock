@@ -1,5 +1,6 @@
 package de.eric_scheibler.tactileclock.utils;
 
+import androidx.annotation.RequiresApi;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.VibrationEffect;
@@ -7,7 +8,6 @@ import android.os.Vibrator;
 import android.os.Handler;
 import android.os.Looper;
 
-import android.annotation.TargetApi;
 import android.annotation.SuppressLint;
 
 import android.app.Notification;
@@ -148,7 +148,9 @@ public class TactileClockService extends Service {
 
             } else if (ACTION_PLAY_GTS.equals(intent.getAction())) {
                 // Play sound
-                if (audioManager.isMusicActive() ? settingsManagerInstance.getPlayGTS() : this.isVibrationAllowed()) {
+                if (audioManager.isMusicActive()
+                        ? settingsManagerInstance.getPlayGTSWhileMusic()
+                        : this.isSoundAllowed()) {
                     MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.pips);
                     mediaPlayer.setOnCompletionListener(MediaPlayer::release);
                     mediaPlayer.start();
@@ -214,7 +216,6 @@ public class TactileClockService extends Service {
         vibrateTime(announcementVibration, minutesOnly, hours, minutes);
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     private void vibrateTime(boolean announcementVibration, boolean minutesOnly, int hours, int minutes) {
         long LONG_GAP = settingsManagerInstance.getLongGap();
 
@@ -398,22 +399,64 @@ public class TactileClockService extends Service {
 
 
     /**
-     * do not disturb or active call
+     * is vibration / sound allowed
+     * check do not disturb, silent mode and active call settings
      */
-    @TargetApi(Build.VERSION_CODES.M)
+
     private boolean isVibrationAllowed() {
         // do not disturb
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if (notificationManager.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isDoNotDisturbEnabledForMAndNewer(notificationManager)) {
                 return false;
             }
         }
+
         // active call
-        if (audioManager.getMode() != AudioManager.MODE_NORMAL) {
+        if (isActiveCall(audioManager)) {
             return false;
         }
-        // else allow
+
+        // ringer mode
+        switch (audioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_SILENT:
+                return false;
+            // else allow (includes RINGER_MODE_VIBRATE and RINGER_MODE_NORMAL)
+        }
+
         return true;
+    }
+
+    private boolean isSoundAllowed() {
+        // do not disturb
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isDoNotDisturbEnabledForMAndNewer(notificationManager)) {
+                return false;
+            }
+        }
+
+        // active call
+        if (isActiveCall(audioManager)) {
+            return false;
+        }
+
+        // check ringer mode
+        switch (audioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_SILENT:
+            case AudioManager.RINGER_MODE_VIBRATE:
+                return false;
+            // else allow (only RINGER_MODE_NORMAL)
+        }
+
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean isDoNotDisturbEnabledForMAndNewer(NotificationManager notificationManager) {
+        return notificationManager.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL;
+    }
+
+    public static boolean isActiveCall(AudioManager audioManager) {
+        return audioManager.getMode() != AudioManager.MODE_NORMAL;
     }
 
 }

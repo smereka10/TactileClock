@@ -118,8 +118,9 @@
     <string name="dialogCancel">Abbrechen</string>
     <string name="dialogEnabled">Ein</string>
     <string name="dialogDisabled">Aus</string>
-    <string name="warning_dnd_active">"Bitte nicht stören" ist aktiviert</string>
-    <string name="warning_exact_alarm_permission_missing">Exakte Alarme können nicht geplant werden. Bitte überprüfen Sie die Berechtigungen.</string>
+    <string name="warningDndActive">"Bitte nicht stören" ist aktiviert</string>
+    <string name="warningRingerModeSilent">Telefon ist im Lautlos-Modus.</string>
+    <string name="warningExactAlarmPermissionMissing">Exakte Alarme können nicht geplant werden. Bitte überprüfen Sie die Berechtigungen.</string>
 
     <!--
          plurals

@@ -1,6 +1,6 @@
 package de.eric_scheibler.tactileclock.utils;
 
-import android.annotation.TargetApi;
+import androidx.annotation.RequiresApi;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -36,7 +36,9 @@ public class ApplicationInstance extends Application {
     @Override public void onCreate() {
         super.onCreate();
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        createNotificationChannel();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.createNotificationChannelForOAndNewer();
+        }
         // app context
         this.applicationInstance = this;
         // debug message initialization
@@ -83,18 +85,16 @@ public class ApplicationInstance extends Application {
      */
     public static final String NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID;
 
-    @TargetApi(Build.VERSION_CODES.O)
-    private void createNotificationChannel() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(
-                    NOTIFICATION_CHANNEL_ID,
-                    getResources().getString(R.string.app_name),
-                    NotificationManager.IMPORTANCE_LOW);
-            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            notificationChannel.setShowBadge(false);
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
-                .createNotificationChannel(notificationChannel);
-        }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannelForOAndNewer() {
+        NotificationChannel notificationChannel = new NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                getResources().getString(R.string.app_name),
+                NotificationManager.IMPORTANCE_LOW);
+        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        notificationChannel.setShowBadge(false);
+        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+            .createNotificationChannel(notificationChannel);
     }
 
 
@@ -102,19 +102,6 @@ public class ApplicationInstance extends Application {
      * alarm manager
      */
     private static final int PENDING_INTENT_VIBRATE_TIME_ID = 39128;
-
-    /**
-     * SCHEDULE_EXACT_ALARM permission
-     * only required for android 12 (api 31 / S)
-     * on Android 13 onwards the implicitly granted permission USE_EXACT_ALARM is used and canScheduleExactAlarms() is always true
-     */
-    @TargetApi(Build.VERSION_CODES.S)
-    public static boolean canScheduleExactAlarms() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            return ((AlarmManager) ApplicationInstance.getContext().getSystemService(Context.ALARM_SERVICE)).canScheduleExactAlarms();
-        }
-        return true;
-    }
 
     public boolean setAlarmForGTS() {
         Calendar calendar = Calendar.getInstance();
@@ -145,15 +132,10 @@ public class ApplicationInstance extends Application {
     @SuppressLint("MissingPermission")
     private boolean setAlarm(Calendar calendar, boolean bGTS) {
         if (! canScheduleExactAlarms()) {
-            Toast.makeText(this, R.string.warning_exact_alarm_permission_missing, Toast.LENGTH_LONG).show();
+            Toast.makeText(
+                    this, R.string.warningExactAlarmPermissionMissing, Toast.LENGTH_LONG)
+                .show();
             return false;
-        }
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL) {
-                Toast.makeText(this, R.string.warning_dnd_active, Toast.LENGTH_LONG).show();
-            }
         }
 
         long millisSinceDeviceStartup = SystemClock.elapsedRealtime() + Math.abs(calendar.getTimeInMillis() - System.currentTimeMillis());
@@ -211,6 +193,25 @@ public class ApplicationInstance extends Application {
         return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
             ? PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
             : PendingIntent.FLAG_CANCEL_CURRENT;
+    }
+
+
+    /**
+     * SCHEDULE_EXACT_ALARM permission
+     * only required for android 12 (api 31 / S)
+     * on Android 13 onwards the implicitly granted permission USE_EXACT_ALARM is used and canScheduleExactAlarms() is always true
+     */
+
+    public static boolean canScheduleExactAlarms() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+            ? canScheduleExactAlarmsForSAndNewer()
+            : true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private static boolean canScheduleExactAlarmsForSAndNewer() {
+        return ((AlarmManager) ApplicationInstance.getContext().getSystemService(Context.ALARM_SERVICE))
+            .canScheduleExactAlarms();
     }
 
 }

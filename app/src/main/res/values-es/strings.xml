@@ -99,8 +99,9 @@
     <string name="dialogCancel">Cancelar</string>
     <string name="dialogEnabled">Activado</string>
     <string name="dialogDisabled">Desactivado</string>
-    <string name="warning_dnd_active">El modo No molestar está activado</string>
-    <string name="warning_exact_alarm_permission_missing">No se pueden programar alarmas exactas. Por favor, comprueba los permisos.</string>
+    <string name="warningDndActive">El modo No molestar está activado</string>
+    <string name="warningRingerModeSilent">El teléfono está en modo silencioso.</string>
+    <string name="warningExactAlarmPermissionMissing">No se pueden programar alarmas exactas. Por favor, comprueba los permisos.</string>
 
     <!--
          plurals
