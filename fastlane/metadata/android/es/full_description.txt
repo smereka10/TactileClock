@@ -25,13 +25,13 @@ Explicación:
 La hora se procesa dígito por dígito:
 
 * . = corto
-* - = largo
+* \- = largo
 
 Tanto en las horas como en los minutos se omiten los ceros iniciales.
 
 Para poder distinguir las vibraciones, existen tres pausas de diferente duración:
 
-* []:     Corta para la pausa entre dos vibraciones
-* [  ]:   Media para la separación entre los dígitos en el campo de horas y minutos
-* [    ]: Larga para la pausa entre horas y minutos
+* \[\]:     Corta para la pausa entre dos vibraciones
+* \[&nbsp;&nbsp;\]:   Media para la separación entre los dígitos en el campo de horas y minutos
+* \[&nbsp;&nbsp;&nbsp;&nbsp;\]: Larga para la pausa entre horas y minutos
 

@@ -27,13 +27,13 @@ Erklärung:
 Die Uhrzeit wird Ziffer für Ziffer verarbeitet:
 
 * . = kurz
-* - = lang
+* \- = lang
 
 Sowohl bei der Stunden-, als auch bei der Minutenangabe werden führende Nullen weggelassen.
 
 Um die Vibrationen unterscheiden zu können, existieren drei unterschiedlich lange Pausen:
 
-* []:     Kurz für die Pause zwischen zwei Vibrationen
-* [  ]:   Mittel für die Trennung zwischen den Ziffern im Stunden- und Minutenfeld
-* [    ]: Lang für die Pause zwischen Stunden und Minuten
+* \[\]:     Kurz für die Pause zwischen zwei Vibrationen
+* \[&nbsp;&nbsp;\]:   Mittel für die Trennung zwischen den Ziffern im Stunden- und Minutenfeld
+* \[&nbsp;&nbsp;&nbsp;&nbsp;\]: Lang für die Pause zwischen Stunden und Minuten
 

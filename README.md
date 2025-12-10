@@ -34,15 +34,15 @@ on. The 0 constitutes an exception with two long vibrations.
 The time is processed digit by digit:
 
 * . = short
-* - = long
+* \- = long
 
 Leading zeros in the hour and minute fields are omitted.
 
 To simplify the recognition of the vibration pattern, there exist three kind of gaps with different durations:
 
-* []:     A short gap between vibrations in the same digit
-* [  ]:   A medium gap for the separation of two digits within the hour and minute field
-* [    ]: A long gap to split hours and minutes
+* \[\]: A short gap between vibrations in the same digit
+* \[&nbsp;&nbsp;\]: A medium gap for the separation of two digits within the hour and minute field
+* \[&nbsp;&nbsp;&nbsp;&nbsp;\]: A long gap to split hours and minutes
 
 
 The app supports all devices with Android version >= 5.1 (API 21).
