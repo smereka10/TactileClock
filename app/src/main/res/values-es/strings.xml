@@ -87,12 +87,12 @@
     <string name="labelTimeFormatExplanation3">Tanto en las horas como en los minutos se omiten los ceros
         iniciales.</string>
     <string name="labelTimeFormatGapHeading">Pausas:</string>
-    <string name="labelTimeFormatGapDescription">Para poder distinguir las vibraciones, existen tres pausas de diferente
-        duración:</string>
+    <string name="labelTimeFormatGapDescription">Existen tres pausas de diferente
+        duración para poder distinguir las vibraciones:</string>
     <string name="labelTimeFormatGap1">• []:     Corta para la pausa entre dos vibraciones</string>
     <string name="labelTimeFormatGap2">• [ ]:   Media para la separación entre los dígitos en el campo de horas y
         minutos</string>
-    <string name="labelTimeFormatGap3">• [&#160;&#160;]: Larga para la pausa entre horas y minutos</string>
+    <string name="labelTimeFormatGap3">• [&#160;&#160;]: Larga para la separación entre horas y minutos</string>
 
 
     <!-- settings activity -->

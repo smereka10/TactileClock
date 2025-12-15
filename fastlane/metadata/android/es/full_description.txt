@@ -1,17 +1,17 @@
-Esta aplicación emite la hora actual como patrón de vibración. Para ello, la pantalla debe estar apagada y el botón de encendido debe presionarse dos veces seguidas rápidamente.
+Esta aplicación vibra la hora actual cuando la pantalla está apagada y se pulsa el botón de encendido dos veces seguidas rápidamente.
 Si el doble clic se ejecuta accidentalmente mientras la pantalla está encendida, la aplicación puede advertir con una vibración larga y continua.
 
-También puedes usar Tactile Clock para mantenerte informado sobre la hora actual.
+Tactile Clock puede mantenerte informado sobre la hora actual de forma automática.
 La aplicación puede vibrar la hora actual automáticamente cada X minutos o cada hora.
-Además, puede reproducir la [Señal Horaria de Greenwich](https://es.wikipedia.org/wiki/Señal_horaria_de_Greenwich) al inicio de cada hora, similar a como lo haría una estación de radio.
+Además, puede reproducir la [Señal Horaria de Greenwich](https://es.wikipedia.org/wiki/Señal_horaria_de_Greenwich) al inicio de cada hora, tal y como lo haría una emisora de radio.
 
 El servicio en segundo plano se inicia automáticamente después del arranque del dispositivo.
 
-Básicamente, se distingue entre los siguientes dos patrones de vibración:
+Se distingue entre los siguientes dos patrones de vibración:
 
-Una vibración corta representa el dígito 1 y una vibración larga representa el dígito 5. El dígito 2 se representa así
-mediante dos vibraciones cortas consecutivas, el 6 mediante una vibración larga y una corta, etc. El 0 es una excepción
-con dos vibraciones largas.
+Una vibración corta representa el dígito 1 y una vibración larga representa el dígito 5. De esta forma, el dígito 2 se representa
+mediante dos vibraciones cortas consecutivas, el 6 mediante una vibración larga y una corta, etc. El 0 se representa mediante
+dos vibraciones largas.
 
 Ejemplos:
 
@@ -22,16 +22,16 @@ Ejemplos:
 
 Explicación:
 
-La hora se procesa dígito por dígito:
+La hora se procesa dígito a dígito:
 
-* . = corto
-* \- = largo
+* . = vibración corta
+* \- = vibración larga
 
 Tanto en las horas como en los minutos se omiten los ceros iniciales.
 
-Para poder distinguir las vibraciones, existen tres pausas de diferente duración:
+Existen tres pausas de diferente duración para poder distinguir las vibraciones:
 
 * \[\]:     Corta para la pausa entre dos vibraciones
 * \[&nbsp;&nbsp;\]:   Media para la separación entre los dígitos en el campo de horas y minutos
-* \[&nbsp;&nbsp;&nbsp;&nbsp;\]: Larga para la pausa entre horas y minutos
+* \[&nbsp;&nbsp;&nbsp;&nbsp;\]: Larga para la separación entre horas y minutos
 
