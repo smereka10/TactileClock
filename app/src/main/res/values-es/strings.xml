@@ -30,7 +30,7 @@
     <string name="buttonScreenOffOnErrorVibration">Vibración de advertencia</string>
     <string name="buttonScreenOffOnVibrateTime">Vibrar hora</string>
     <string name="labelScreenOffOnDescription">Qué debe suceder si la pantalla ya está encendida
-        al hacer doble clic en el botón de encendido, causando que se apague y vuelva a encender en
+        al hacer doble clic en el botón de encendido, causando que esta se apague y vuelva a encender en
         lugar de encenderse brevemente y apagarse de nuevo.</string>
 
     <!-- watch fragment -->
@@ -60,22 +60,22 @@
 
     <!-- HelpDialog -->
     <string name="helpDialogTitle">Tutorial</string>
-    <string name="labelApplicationDescription1">Esta aplicación emite la hora actual como patrón de vibración. Para ello,
-        la pantalla debe estar apagada y el botón de encendido debe presionarse dos veces seguidas rápidamente. Si el
+    <string name="labelApplicationDescription1">Esta aplicación vibra la hora actual cuando
+        la pantalla está apagada y se pulsa el botón de encendido dos veces seguidas rápidamente. Si el
         doble clic se ejecuta accidentalmente mientras la pantalla está encendida, la aplicación puede advertir con una
         vibración larga y continua.</string>
-    <string name="labelApplicationDescription2">También puedes usar Tactile Clock para mantenerte informado sobre la hora
-        actual. La aplicación puede vibrar la hora actual automáticamente cada X minutos o cada hora.</string>
-    <string name="labelApplicationDescription3">Además, puede reproducir la Señal Horaria de Greenwich (también conocida
+    <string name="labelApplicationDescription2">Tactile Clock puede mantenerte informado sobre la hora
+        actual de forma automática. La aplicación puede vibrar la hora actual automáticamente cada X minutos o cada hora.</string>
+    <string name="labelApplicationDescription3">También puede reproducir la Señal Horaria de Greenwich (también conocida
         como \"Pips\") al inicio de cada hora, similar a como lo haría una estación de radio.</string>
     <string name="labelApplicationDescription4">El servicio en segundo plano se inicia automáticamente después del arranque
         del dispositivo.</string>
     <string name="labelVibrationPatternHeading">Patrones de vibración:</string>
-    <string name="labelVibrationPatternDescription1">Básicamente, se distingue entre los siguientes dos patrones de
+    <string name="labelVibrationPatternDescription1">Se distingue entre los siguientes dos patrones de
         vibración:</string>
     <string name="labelVibrationPatternDescription2">Una vibración corta representa el dígito 1 y una vibración larga
-        representa el dígito 5. El dígito 2 se representa así mediante dos vibraciones cortas consecutivas, el 6 mediante
-        una vibración larga y una corta, etc. El 0 es una excepción con dos vibraciones largas.</string>
+        representa el dígito 5. De está forma, el dígito 2 se representa mediante dos vibraciones cortas consecutivas, el 6 mediante
+        una vibración larga y una corta, etc. El 0 se representa mediante dos vibraciones largas.</string>
     <string name="labelTimeFormatExampleHeading">Ejemplos:</string>
     <string name="labelTimeFormatExample1">• 01:18 =  . &#160; .  -...</string>
     <string name="labelTimeFormatExample2">• 02:51 =  .. &#160; -  .</string>
@@ -107,9 +107,9 @@
     <string name="labelVibrationSettings">Ajustes de vibración</string>
     <string name="switchMaxStrengthVibrations">Vibrar con intensidad máxima</string>
     <string name="labelShort">Corta</string>
-    <string name="labelShortCD">Corta vibración</string>
+    <string name="labelShortCD">Vibración corta</string>
     <string name="labelLong">Larga</string>
-    <string name="labelLongCD">Larga vibración</string>
+    <string name="labelLongCD">Vibración larga</string>
     <string name="sliderVibrationDurationCD">Duración de vibración</string>
     <string name="labelTestVibrationHeading">Test vibración de hora</string>
     <string name="buttonRefreshTestTime">Actualizar hora</string>
@@ -122,7 +122,7 @@
     <string name="labelEmailAddress">Correo electrónico: %1$s</string>
     <string name="labelWebsite">Esta aplicación es software libre. Puedes encontrar el código fuente en &lt;a href="%1$s"&gt;GitHub&lt;/a&gt;.</string>
     <string name="labelPrivacyHeading">Privacidad</string>
-    <string name="labelPrivacy0">La aplicación de Android Reloj Táctil no requiere conexión a internet.\nTodos los ajustes se almacenan exclusivamente en el propio dispositivo y no se comparten con nadie.</string>
+    <string name="labelPrivacy0">La aplicación Reloj Táctil no requiere conexión a internet.\nTodos los ajustes se almacenan exclusivamente en el propio dispositivo y no se comparten con nadie.</string>
     <string name="labelPrivacy1">La aplicación es software libre y no contiene publicidad.</string>
 
     <!-- service -->
@@ -135,7 +135,7 @@
     <string name="dialogEnabled">Activado</string>
     <string name="dialogDisabled">Desactivado</string>
     <string name="warningDndActive">El modo No molestar está activado</string>
-    <string name="warningRingerModeSilent">El teléfono está en modo silencioso.</string>
+    <string name="warningRingerModeSilent">El teléfono está en modo silencio.</string>
     <string name="warningExactAlarmPermissionMissing">No se pueden programar alarmas exactas. Por favor, comprueba los permisos.</string>
 
     <!--
@@ -145,12 +145,14 @@
     <plurals
         name="milliseconds">
         <item quantity="one">1 ms</item>
+        <item quantity="other">%d ms</item>
         <item quantity="many">%d ms</item>
     </plurals>
 
     <plurals
         name="minutes">
         <item quantity="one">1 minuto</item>
+        <item quantity="other">%d minutos</item>
         <item quantity="many">%d minutos</item>
     </plurals>
 
