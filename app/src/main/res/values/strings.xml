@@ -86,8 +86,8 @@
     <string name="labelTimeFormatGapDescription">To simplify the recognition of the vibration pattern,
         there exist three kind of gaps with different durations:</string>
     <string name="labelTimeFormatGap1">• []:     A short gap between vibrations in the same digit</string>
-    <string name="labelTimeFormatGap2">• [ ]:   A medium gap for the separation of two digits within the hour and minute field</string>
-    <string name="labelTimeFormatGap3">• [&#160;]: A long gap to split hours and minutes</string>
+    <string name="labelTimeFormatGap2">• [&#160;]:   A medium gap for the separation of two digits within the hour and minute field</string>
+    <string name="labelTimeFormatGap3">• [&#160;&#160;]: A long gap to split hours and minutes</string>
 
 
     <!-- settings activity -->

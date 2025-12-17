@@ -4,3 +4,4 @@
 - Greenwich Time Signal plays at the top of every hour
 - Tutorial text revised
 - Spanish translation added
+- Leading zeros in hour and minute field omitted

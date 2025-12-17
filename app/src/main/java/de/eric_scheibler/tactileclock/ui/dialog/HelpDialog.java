@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.DialogFragment;
 
 import de.eric_scheibler.tactileclock.R;
-import de.eric_scheibler.tactileclock.utils.SettingsManager;
 import android.content.Intent;
 import de.eric_scheibler.tactileclock.utils.TactileClockService;
 import android.widget.Button;
@@ -27,27 +26,33 @@ import android.os.Looper;
 
 
 public class HelpDialog extends DialogFragment {
-    public static final String REQUEST_DIALOG_CLOSED = "dialogClosed";
+    public static final String REQUEST_DIALOG_CLOSED_AFTER_FIRST_APP_START = "dialogClosedAfterFirstAppStart";
 
-    public static HelpDialog newInstance() {
-        HelpDialog helpDialogInstance = new HelpDialog();
-        return helpDialogInstance;
+    public static HelpDialog newInstance(boolean firstStart) {
+        HelpDialog dialog = new HelpDialog();
+        Bundle args = new Bundle();
+        args.putBoolean(KEY_FIRST_START, firstStart);
+        dialog.setArguments(args);
+        return dialog;
     }
 
 
-    private SettingsManager settingsManagerInstance;
+    private static final String KEY_FIRST_START = "firstStart";
+
     private Handler handler;
+    private boolean firstStart;
 
 	@Override public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         handler = new Handler(Looper.getMainLooper());
-        settingsManagerInstance = SettingsManager.getInstance();
+        firstStart = getArguments().getBoolean(KEY_FIRST_START, false);
     }
 
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (settingsManagerInstance.getFirstStart()) {
+        if (firstStart) {
             // must force a click on the "OK" button if the app is launched for the first time
             // otherwise it's not guaranteed that the REQUEST_DIALOG_CLOSED action is sent
+            // also disables back gesture and button click
             setCancelable(false);
         }
 
@@ -81,8 +86,10 @@ public class HelpDialog extends DialogFragment {
             Button buttonPositive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             buttonPositive.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View view) {
-                    getParentFragmentManager().setFragmentResult(
-                            REQUEST_DIALOG_CLOSED, new Bundle());
+                    if (firstStart) {
+                        getParentFragmentManager().setFragmentResult(
+                                REQUEST_DIALOG_CLOSED_AFTER_FIRST_APP_START, new Bundle());
+                    }
                     dismiss();
                 }
             });

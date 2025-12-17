@@ -4,3 +4,4 @@
 - Señal Horaria de Greenwich reproduce al inicio de cada hora
 - Texto del tutorial revisado
 - Traducción al español añadida
+- Los ceros iniciales se omiten tanto en las horas como en los minutos

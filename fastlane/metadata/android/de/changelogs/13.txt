@@ -1,6 +1,7 @@
 - Dauer der kurzen und langen Vibration in den Einstellungen konfigurierbar
 - Test der Uhrzeitvibration im Tutorial und den Einstellungen hinzugefügt
 - Wenn der Bildschirm aus- und eingeschaltet wird, kann nun entweder eine Warnvibration oder ebenfalls die Uhrzeit vibriert werden
-- Greenwich Time Signal zu jeder vollen Stunde
+- Greenwich Time Signal zu jeder vollen Stunde abspielen
 - Tutorialtext überarbeitet
 - Spanische Übersetzung hinzugefügt
+- Führende Nullen werden nun sowohl bei den Stunden als auch bei den Minuten weggelassen

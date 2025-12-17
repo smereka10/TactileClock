@@ -85,8 +85,8 @@
     <string name="labelTimeFormatGapHeading">Pausen:</string>
     <string name="labelTimeFormatGapDescription">Um die Vibrationen unterscheiden zu können, existieren drei unterschiedlich lange Pausen:</string>
     <string name="labelTimeFormatGap1">• []:     Kurz für die Pause zwischen zwei Vibrationen</string>
-    <string name="labelTimeFormatGap2">• [ ]:   Mittel für die Trennung zwischen den Ziffern im Stunden- und Minutenfeld</string>
-    <string name="labelTimeFormatGap3">• [&#160;]: Lang für die Pause zwischen Stunden und Minuten</string>
+    <string name="labelTimeFormatGap2">• [&#160;]:   Mittel für die Trennung zwischen den Ziffern im Stunden- und Minutenfeld</string>
+    <string name="labelTimeFormatGap3">• [&#160;&#160;]: Lang für die Pause zwischen Stunden und Minuten</string>
 
 
     <!-- settings activity -->

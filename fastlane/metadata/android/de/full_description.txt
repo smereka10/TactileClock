@@ -26,8 +26,8 @@ Erklärung:
 
 Die Uhrzeit wird Ziffer für Ziffer verarbeitet:
 
-* . = kurz
-* \- = lang
+* . = kurze Vibration
+* \- = lange Vibration
 
 Sowohl bei der Stunden-, als auch bei der Minutenangabe werden führende Nullen weggelassen.
 

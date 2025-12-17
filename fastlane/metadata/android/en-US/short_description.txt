@@ -1,1 +1,1 @@
-Vibrates the current time after double press of device power button
+Double click the power button of your device to vibrate the current time

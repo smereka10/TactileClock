@@ -2,7 +2,7 @@ Tactile Clock
 =============
 
 This Android app vibrates the current time when the display is locked and the power button is
-clicked. If the double click is performed accidentally while the display is still active, the app 
+double-clicked. If the click is performed accidentally while the display is still active, the app 
 can warn with a long, persistent vibration.
 
 You may also use Tactile clock to keep informed about the current time. The app
@@ -20,7 +20,8 @@ A short vibration stands for the digit 1 and a long one for the digit 5. The 2
 is represented by two consecutive short vibrations, the 6 by a long and a short one and so
 on. The 0 constitutes an exception with two long vibrations.
 
-**Examples:**
+
+## Examples
 
 ```
 01:18 =  .    .  -...
@@ -29,12 +30,12 @@ on. The 0 constitutes an exception with two long vibrations.
 19:06 =  .  -....    -.
 ```
 
-**Explanation:**
+## Explanation:
 
 The time is processed digit by digit:
 
-* . = short
-* \- = long
+* . = short vibration
+* \- = long vibration
 
 Leading zeros in the hour and minute fields are omitted.
 

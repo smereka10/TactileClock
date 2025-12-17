@@ -2,14 +2,17 @@
 
 
 
-## v2.5.0: Released at 2025-12-13
+## v2.5.0: Released at 2025-12-16
 
 - Duration of short and long vibrations configurable in settings
-- Test of time vibration added to tutorial and settings
+- Add test of time vibration to tutorial and settings
 - When the screen is turned off and on, either a warning vibration or the current time can be vibrated
 - Greenwich Time Signal plays at the top of every hour
-- Tutorial text revised
-- Spanish translation added
+- Leading zeros in hour and minute field omitted (#3)
+- Revise tutorial text and fix some bugs in the help dialog
+- Add Spanish translation
+- Update screenshots and app store descriptions
+- Add a GitHub funding file
 
 
 

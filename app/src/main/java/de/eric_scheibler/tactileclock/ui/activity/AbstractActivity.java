@@ -31,8 +31,10 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 
 public abstract class AbstractActivity extends AppCompatActivity implements FragmentResultListener {
+    private static String KEY_FIRST_APP_START_AND_HELP_DIALOG_IS_OPEN = "firstAppStartAndHelpDialogIsOpen";
 
 	public SettingsManager settingsManagerInstance;
+    private boolean firstAppStartAndHelpDialogIsOpen;
 
     public abstract int getLayoutResourceId();
 
@@ -46,7 +48,10 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
         settingsManagerInstance = SettingsManager.getInstance();
         getSupportFragmentManager()
             .setFragmentResultListener(
-                    HelpDialog.REQUEST_DIALOG_CLOSED, this, this);
+                    HelpDialog.REQUEST_DIALOG_CLOSED_AFTER_FIRST_APP_START, this, this);
+        firstAppStartAndHelpDialogIsOpen = savedInstanceState != null
+            ? savedInstanceState.getBoolean(KEY_FIRST_APP_START_AND_HELP_DIALOG_IS_OPEN)
+            : false;
 
         // margin for system bars at the top and bottom of the screen
         View rootView = findViewById(getRootViewResId());
@@ -62,11 +67,13 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
     }
 
     @Override public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-        if (requestKey.equals(HelpDialog.REQUEST_DIALOG_CLOSED)) {
-            if (settingsManagerInstance.getFirstStart()) {
-                settingsManagerInstance.setFirstStart(false);
-                askForNotificationPermission();
-            }
+        if (requestKey.equals(HelpDialog.REQUEST_DIALOG_CLOSED_AFTER_FIRST_APP_START)) {
+            // firstAppStartAndHelpDialogIsOpen is temporary and required if i.e. the screen orientation changed while the HelpDialog is open
+            firstAppStartAndHelpDialogIsOpen = false;
+            // then save app firstStart = false permanently in settings
+            settingsManagerInstance.setFirstStart(false);
+            // and ask for foreground service notification
+            askForNotificationPermission();
         }
     }
 
@@ -77,11 +84,19 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
     @Override public void onResume() {
         super.onResume();
         if (settingsManagerInstance.getFirstStart()) {
-            HelpDialog.newInstance()
-                .show(getSupportFragmentManager(), "HelpDialog");
+            if (! firstAppStartAndHelpDialogIsOpen) {
+                HelpDialog.newInstance(true)
+                    .show(getSupportFragmentManager(), "HelpDialog");
+                firstAppStartAndHelpDialogIsOpen = true;
+            }
         } else {
             askForNotificationPermission();
         }
+    }
+
+    @Override public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(KEY_FIRST_APP_START_AND_HELP_DIALOG_IS_OPEN, firstAppStartAndHelpDialogIsOpen);
     }
 
     private void askForNotificationPermission() {

@@ -1,5 +1,5 @@
 This Android app vibrates the current time when the display is locked and the power button is
-clicked. If the double click is performed accidentally while the display is still active, the app 
+double-clicked. If the click is performed accidentally while the display is still active, the app 
 can warn with a long, persistent vibration.
 
 You may also use Tactile clock to keep informed about the current time. The app
@@ -28,8 +28,8 @@ Explanation:
 
 The time is processed digit by digit:
 
-* . = short
-* \- = long
+* . = short vibration
+* \- = long vibration
 
 Leading zeros in the hour and minute fields are omitted.
 

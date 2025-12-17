@@ -74,7 +74,7 @@ public class MainActivity extends AbstractActivity {
                     Intent intentStartInfoActivity = new Intent(MainActivity.this, InfoActivity.class);
                     startActivity(intentStartInfoActivity);
                 } else if (menuItem.getItemId() == R.id.menuItemTutorial) {
-                    HelpDialog.newInstance()
+                    HelpDialog.newInstance(false)
                         .show(getSupportFragmentManager(), "HelpDialog");
                 }
                 return true;

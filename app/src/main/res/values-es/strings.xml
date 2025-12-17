@@ -90,7 +90,7 @@
     <string name="labelTimeFormatGapDescription">Existen tres pausas de diferente
         duración para poder distinguir las vibraciones:</string>
     <string name="labelTimeFormatGap1">• []:     Corta para la pausa entre dos vibraciones</string>
-    <string name="labelTimeFormatGap2">• [ ]:   Media para la separación entre los dígitos en el campo de horas y
+    <string name="labelTimeFormatGap2">• [&#160;]:   Media para la separación entre los dígitos en el campo de horas y
         minutos</string>
     <string name="labelTimeFormatGap3">• [&#160;&#160;]: Larga para la separación entre horas y minutos</string>
 
