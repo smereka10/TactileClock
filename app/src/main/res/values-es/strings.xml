@@ -60,19 +60,13 @@
 
     <!-- HelpDialog -->
     <string name="helpDialogTitle">Tutorial</string>
-    <string name="labelApplicationDescription1">Esta aplicación vibra la hora actual cuando
-        la pantalla está apagada y se pulsa el botón de encendido dos veces seguidas rápidamente. Si el
-        doble clic se ejecuta accidentalmente mientras la pantalla está encendida, la aplicación puede advertir con una
-        vibración larga y continua.</string>
-    <string name="labelApplicationDescription2">Tactile Clock puede mantenerte informado sobre la hora
-        actual de forma automática. La aplicación puede vibrar la hora actual automáticamente cada X minutos o cada hora.</string>
-    <string name="labelApplicationDescription3">También puede reproducir la Greenwich Time Signal (también conocida
-        como \"Pips\") al inicio de cada hora, tal y como lo haría una emisora de radio.</string>
-    <string name="labelApplicationDescription4">El servicio en segundo plano se inicia automáticamente después del arranque
-        del dispositivo.</string>
-    <string name="labelVibrationPatternHeading">Patrones de vibración:</string>
-    <string name="labelVibrationPatternDescription1">Se distingue entre los siguientes dos patrones de
-        vibración:</string>
+    <string name="labelApplicationDescription1">Esta aplicación vibra la hora actual cuando la pantalla
+        está bloqueada y haces doble clic en el botón de encendido.</string>
+    <string name="labelHowItWorksHeading">Cómo funciona</string>
+    <string name="labelDoubleClickDescription1">Haz doble clic en el botón de encendido. Esto puede
+        requerir algo de práctica para que funcione de manera confiable. Presiona lenta y deliberadamente.
+        Si haces doble clic demasiado rápido, el sistema solo reconoce un clic y enciende la pantalla en su lugar.</string>
+    <string name="labelVibrationPatternDescription1">La vibración de la hora funciona de la siguiente manera:</string>
     <string name="labelVibrationPatternDescription2">Una vibración corta representa el dígito 1 y una vibración larga
         representa el dígito 5. De esta forma, el dígito 2 se representa mediante dos vibraciones cortas consecutivas, el 6 mediante
         una vibración larga y una corta, etc. El 0 se representa mediante dos vibraciones largas.</string>
@@ -93,7 +87,11 @@
     <string name="labelTimeFormatGap2">• [&#160;]:   Media para la separación entre los dígitos en el campo de horas y
         minutos</string>
     <string name="labelTimeFormatGap3">• [&#160;&#160;]: Larga para la separación entre horas y minutos</string>
-
+    <string name="labelAdditionalFeaturesHeading">Funciones adicionales</string>
+    <string name="labelAdditionalFeaturesDescription1">• Mantente informado sobre la hora actual. La aplicación puede vibrar la hora actual automáticamente cada X minutos o cada hora.</string>
+    <string name="labelAdditionalFeaturesDescription2">• Reproduce la Señal Horaria de Greenwich (también conocida como \"Pips\") al inicio de cada hora, similar a una estación de radio.</string>
+    <string name="labelAdditionalFeaturesDescription3">• Decide qué hacer si haces doble clic cuando la pantalla está encendida. Puedes elegir entre una vibración de advertencia y que también se vibre la hora.</string>
+    <string name="labelAdditionalFeaturesDescription4">• La aplicación se inicia automáticamente al reiniciar el teléfono.</string>
 
     <!-- settings activity -->
     <string name="settingsActivityTitle">Ajustes</string>

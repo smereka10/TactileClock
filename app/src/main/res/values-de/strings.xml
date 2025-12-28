@@ -61,15 +61,12 @@
     <!-- HelpDialog -->
     <string name="helpDialogTitle">Tutorial</string>
     <string name="labelApplicationDescription1">Diese App gibt die aktuelle Uhrzeit als Vibrationspattern aus. Dazu muss das Display abgeschaltet
-        sein und der Power-Button zweimal kurz hintereinander betätigt werden. Sollte der Doppelklick versehentlich
-        ausgeführt werden, während das Display eingeschaltet ist, kann die App mit einer
-        langen, durchgängigen Vibration davor warnen.</string>
-    <string name="labelApplicationDescription2">Du kannst Tactile Clock auch verwenden, um die aktuelle Uhrzeit im Blick zu behalten.
-        Die App kann die aktuelle Uhrzeit automatisch alle X Minuten oder jede Stunde vibrieren.</string>
-    <string name="labelApplicationDescription3">Außerdem kann sie zu Beginn jeder Stunde das Greenwich Time Signal (auch bekannt als „Pips“) abspielen, ähnlich wie bei einem Radiosender.</string>
-    <string name="labelApplicationDescription4">Der Hintergrunddienst startet automatisch nach dem Booten des Geräts.</string>
-    <string name="labelVibrationPatternHeading">Vibrationspattern:</string>
-    <string name="labelVibrationPatternDescription1">Grundsätzlich wird zwischen den folgenden zwei Vibrationspattern unterschieden:</string>
+        sein und der Power-Button zweimal kurz hintereinander betätigt werden.</string>
+    <string name="labelHowItWorksHeading">Funktionsweise</string>
+    <string name="labelDoubleClickDescription1">Mache einen Doppelklick auf den Power-Button.
+        Das erfordert etwas Übung, da es nicht zu schnell geschehen darf. Anderenfalls registriert das
+        Smartphone nur einen einzelnen Klick und schaltet stattdessen den Bildschirm ein.</string>
+    <string name="labelVibrationPatternDescription1">Die Uhrzeitvibration ist wie folgt aufgebaut:</string>
     <string name="labelVibrationPatternDescription2">Eine kurze Vibration steht für die Ziffer 1 und eine lange Vibration für die Ziffer 5. Die Ziffer 2 wird somit
         durch zwei aufeinander folgende kurze Vibrationen, die 6 durch eine lange und eine kurze Vibration
         dargestellt usw.. Die 0 bildet mit zwei langen Vibrationen eine Ausnahme.</string>
@@ -87,7 +84,12 @@
     <string name="labelTimeFormatGap1">• []:     Kurz für die Pause zwischen zwei Vibrationen</string>
     <string name="labelTimeFormatGap2">• [&#160;]:   Mittel für die Trennung zwischen den Ziffern im Stunden- und Minutenfeld</string>
     <string name="labelTimeFormatGap3">• [&#160;&#160;]: Lang für die Pause zwischen Stunden und Minuten</string>
-
+    <string name="labelAdditionalFeaturesHeading">Weitere Funktionen</string>
+    <string name="labelAdditionalFeaturesDescription1">• Behalte die aktuelle Uhrzeit im Blick.  Die App kann die aktuelle Uhrzeit automatisch alle X Minuten oder jede Stunde vibrieren.</string>
+    <string name="labelAdditionalFeaturesDescription2">• Spiele das Greenwich Time Signal zu Beginn jeder Stunde ab, ähnlich wie bei einem Radiosender.</string>
+    <string name="labelAdditionalFeaturesDescription3">• Entscheide, was passieren soll, wenn der Bildschirm beim Doppelklick eingeschaltet ist. Du kannst zwischen einer
+        Warnvibration und dem Vibrieren der Uhrzeit wählen.</string>
+    <string name="labelAdditionalFeaturesDescription4">• Die App startet automatisch nach Dem Neustart des Systems.</string>
 
     <!-- settings activity -->
     <string name="settingsActivityTitle">Einstellungen</string>

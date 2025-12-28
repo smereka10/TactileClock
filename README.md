@@ -1,27 +1,25 @@
 Tactile Clock
 =============
 
-This Android app vibrates the current time when the display is locked and the power button is
-double-clicked. If the click is performed accidentally while the display is still active, the app 
-can warn with a long, persistent vibration.
+This Android app vibrates the current time when the display is locked and you double-click the power button of your device.
 
-You may also use Tactile clock to keep informed about the current time. The app
-can vibrate the current time automatically every X minutes or every hour.
-
-It can also play the [Greenwich Time Signal](https://en.wikipedia.org/wiki/Greenwich_Time_Signal) at the start of each hour
-similar to how a radio station would do.
-
-The background process automatically initiates once the system has finished booting.
+The app is available in the [Play Store](https://play.google.com/store/apps/details?id=de.eric_scheibler.tactileclock&hl=en)
+and at [IzzyOnDroid](https://apt.izzysoft.de/packages/de.eric_scheibler.tactileclock).
 
 
-Two different vibration pattern exist:
+## How it works
+
+Double-click the power button.  This might take some practice to work reliably. Press slowly and deliberately. If you
+double-click too fast the system only recognizes a single click and turns the screen on instead.
+
+The time vibration is structured as follows:
 
 A short vibration stands for the digit 1 and a long one for the digit 5. The 2
 is represented by two consecutive short vibrations, the 6 by a long and a short one and so
 on. The 0 constitutes an exception with two long vibrations.
 
 
-## Examples
+### Examples:
 
 ```
 01:18 =  .    .  -...
@@ -30,7 +28,8 @@ on. The 0 constitutes an exception with two long vibrations.
 19:06 =  .  -....    -.
 ```
 
-## Explanation:
+
+### Explanation:
 
 The time is processed digit by digit:
 
@@ -39,6 +38,9 @@ The time is processed digit by digit:
 
 Leading zeros in the hour and minute fields are omitted.
 
+
+### Gaps
+
 To simplify the recognition of the vibration pattern, there exist three kind of gaps with different durations:
 
 * \[\]: A short gap between vibrations in the same digit
@@ -46,8 +48,12 @@ To simplify the recognition of the vibration pattern, there exist three kind of 
 * \[&nbsp;&nbsp;&nbsp;&nbsp;\]: A long gap to split hours and minutes
 
 
-The app supports all devices with Android version >= 5.1 (API 21).
+## Additional features
 
-This app is also available in the [Play Store](https://play.google.com/store/apps/details?id=de.eric_scheibler.tactileclock&hl=en)
-and at [IzzyOnDroid](https://apt.izzysoft.de/packages/de.eric_scheibler.tactileclock).
+* Keep informed about the current time. The app can vibrate the current time automatically every X minutes or every hour.
+* Play the [Greenwich Time Signal](https://en.wikipedia.org/wiki/Greenwich_Time_Signal) at the start of each hour, similar to a radio station.
+* Decide what to do if you double-click when the display is on. You can choose between a warning vibration and having
+  the time vibrated as well.
+* The app is always ready, even after restarting your phone.
+* It runs on all devices with Android version >= 5.1 (API 21).
 

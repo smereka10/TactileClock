@@ -19,37 +19,23 @@
             android:focusable="true"
             android:text="@string/labelApplicationDescription1" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:focusable="true"
-            android:text="@string/labelApplicationDescription2" />
+
+        <!-- how it works -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:focusable="true"
-            android:text="@string/labelApplicationDescription3" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:focusable="true"
-            android:text="@string/labelApplicationDescription4" />
-
-
-        <!-- vibration pattern information -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:focusable="true"
-            android:text="@string/labelVibrationPatternHeading"
+            android:text="@string/labelHowItWorksHeading"
             android:theme="@style/HeadingTextView" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:focusable="true"
+            android:text="@string/labelDoubleClickDescription1" />
 
         <TextView
             android:layout_width="match_parent"
@@ -176,6 +162,45 @@
             android:layout_marginTop="4dp"
             android:focusable="true"
             android:text="@string/labelTimeFormatGap3" />
+
+
+        <!-- additional features -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:focusable="true"
+            android:text="@string/labelAdditionalFeaturesHeading"
+            android:theme="@style/HeadingTextView" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:focusable="true"
+            android:text="@string/labelAdditionalFeaturesDescription1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:focusable="true"
+            android:text="@string/labelAdditionalFeaturesDescription2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:focusable="true"
+            android:text="@string/labelAdditionalFeaturesDescription3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:focusable="true"
+            android:text="@string/labelAdditionalFeaturesDescription4" />
 
     </LinearLayout>
 </ScrollView>
