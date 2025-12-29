@@ -1,0 +1,8 @@
+- Duración de las vibraciones cortas y largas configurable en ajustes
+- Prueba de vibración de hora añadida al tutorial y ajustes
+- Cuando la pantalla se apaga y enciende, puede vibrar una advertencia o la hora actual
+- Señal Horaria de Greenwich reproduce al inicio de cada hora
+- Texto del tutorial revisado
+- Traducción al español añadida
+- Los ceros iniciales se omiten tanto en las horas como en los minutos
+- Correcciones de errores menores

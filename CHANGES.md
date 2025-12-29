@@ -2,6 +2,14 @@
 
 
 
+## v2.5.1: Released at 2025-12-29
+
+- Add stop-clock action to the service notification
+- Add audio ducking during Greenwich time signal playback
+- Update tutorial text
+
+
+
 ## v2.5.0: Released at 2025-12-16
 
 - Duration of short and long vibrations configurable in settings

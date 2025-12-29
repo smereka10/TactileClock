@@ -1,0 +1,8 @@
+- Duration of short and long vibrations configurable in settings
+- Test of time vibration added to tutorial and settings
+- When the screen is turned off and on, either a warning vibration or the current time can be vibrated
+- Greenwich Time Signal plays at the top of every hour
+- Tutorial text revised
+- Spanish translation added
+- Leading zeros in hour and minute field omitted
+- Small bug fixes (close-notification and audio focus)
