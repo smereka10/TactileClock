@@ -52,12 +52,6 @@ public class MainActivity extends AbstractActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // start service
-        Intent startServiceIntent = new Intent(this, TactileClockService.class);
-        startServiceIntent.setAction(TactileClockService.ACTION_UPDATE_NOTIFICATION);
-            ContextCompat.startForegroundService(
-                    ApplicationInstance.getContext(), startServiceIntent);
-
         // navigation drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
@@ -161,6 +155,17 @@ public class MainActivity extends AbstractActivity {
             return (Tab) intent.getExtras().getSerializable(EXTRA_NEW_TAB);
         }
         return null;
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        // start service
+        if (TactileClockService.hasPostNotificationsPermission()) {
+            Intent startServiceIntent = new Intent(this, TactileClockService.class);
+            startServiceIntent.setAction(TactileClockService.ACTION_UPDATE_NOTIFICATION);
+            ContextCompat.startForegroundService(
+                    ApplicationInstance.getContext(), startServiceIntent);
+        }
     }
 
     @Override public void onSaveInstanceState(Bundle savedInstanceState) {

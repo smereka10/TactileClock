@@ -34,8 +34,8 @@
         instead of briefly turning on and off again.</string>
 
     <!-- watch fragment -->
-    <string name="fragmentWatch">Watch</string>
-    <string name="buttonStartWatch">Start watch</string>
+    <string name="fragmentWatch">Clock</string>
+    <string name="buttonStartWatch">Start clock</string>
     <string name="labelWatchFragmentDescription">Continuous vibration of the current time</string>
     <string name="labelWatchVibrationOptions">Vibration</string>
     <string name="buttonEnableVibration">Vibrate time</string>
@@ -123,8 +123,9 @@
     <string name="labelPrivacy1">The app is free software and contains no advertising.</string>
 
     <!-- service -->
-    <string name="serviceNotification">Shortcut: %1$s, Watch: %2$s</string>
-    <string name="serviceNotificationWatchEnabled">Shortcut: %1$s, Watch: %2$s (%3$s)</string>
+    <string name="serviceNotification">Shortcut: %1$s, Clock: %2$s</string>
+    <string name="serviceNotificationWatchEnabled">Shortcut: %1$s, Clock: %2$s (%3$s)</string>
+    <string name="serviceNotificationActionStopWatch">Stop clock</string>
 
     <!-- standard messages, which are used in more than one component -->
     <string name="dialogOK">OK</string>

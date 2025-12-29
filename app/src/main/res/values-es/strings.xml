@@ -126,6 +126,7 @@
     <!-- service -->
     <string name="serviceNotification">Atajo: %1$s, Reloj: %2$s</string>
     <string name="serviceNotificationWatchEnabled">Atajo: %1$s, Reloj: %2$s (%3$s)</string>
+    <string name="serviceNotificationActionStopWatch">Detener reloj</string>
 
     <!-- standard messages, which are used in more than one component -->
     <string name="dialogOK">Aceptar</string>

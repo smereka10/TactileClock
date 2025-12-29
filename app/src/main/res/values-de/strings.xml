@@ -125,6 +125,7 @@
     <!-- service -->
     <string name="serviceNotification">Shortcut: %1$s, Uhr: %2$s</string>
     <string name="serviceNotificationWatchEnabled">Shortcut: %1$s, Uhr: %2$s (%3$s)</string>
+    <string name="serviceNotificationActionStopWatch">Uhr stoppen</string>
 
     <!-- standard messages, which are used in more than one component -->
     <string name="dialogOK">OK</string>

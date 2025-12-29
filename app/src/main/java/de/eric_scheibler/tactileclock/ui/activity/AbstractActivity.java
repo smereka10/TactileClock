@@ -1,5 +1,6 @@
 package de.eric_scheibler.tactileclock.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import de.eric_scheibler.tactileclock.utils.TactileClockService;
@@ -99,10 +100,10 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
         savedInstanceState.putBoolean(KEY_FIRST_APP_START_AND_HELP_DIALOG_IS_OPEN, firstAppStartAndHelpDialogIsOpen);
     }
 
+    @SuppressLint("InlinedApi")     // TactileClockService.hasPostNotificationsPermission() does the api level check
     private void askForNotificationPermission() {
         if (! settingsManagerInstance.getAskedForNotificationPermission()
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                && ContextCompat.checkSelfPermission(ApplicationInstance.getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                && ! TactileClockService.hasPostNotificationsPermission()) {
             settingsManagerInstance.setAskedForNotificationPermission(true);
             requestNotificationPermissionLauncher
                 .launch(Manifest.permission.POST_NOTIFICATIONS);

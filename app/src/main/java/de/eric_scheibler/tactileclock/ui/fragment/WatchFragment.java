@@ -1,5 +1,6 @@
 package de.eric_scheibler.tactileclock.ui.fragment;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.media.AudioManager;
 import androidx.annotation.RequiresApi;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import android.app.NotificationManager;
 import android.widget.Toast;
 import android.content.Context;
 import de.eric_scheibler.tactileclock.utils.TactileClockService;
+import android.content.IntentFilter;
+import android.content.BroadcastReceiver;
 
 
 public class WatchFragment extends Fragment implements IntegerSelector {
@@ -136,6 +139,7 @@ public class WatchFragment extends Fragment implements IntegerSelector {
 
     @Override public void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
     }
 
     @Override public void onResume() {
@@ -144,6 +148,10 @@ public class WatchFragment extends Fragment implements IntegerSelector {
                 && ! ApplicationInstance.canScheduleExactAlarms()) {
             settingsManagerInstance.disableWatch();
         }
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(TactileClockService.UPDATE_WATCH_UI);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver, filter);
 
         updateUI();
     }
@@ -160,6 +168,15 @@ public class WatchFragment extends Fragment implements IntegerSelector {
             }
         }
     }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(TactileClockService.UPDATE_WATCH_UI)) {
+                updateUI();
+            }
+        }
+    };
+
 
     private void updateUI() {
         buttonStartWatch.setChecked(settingsManagerInstance.isWatchEnabled());

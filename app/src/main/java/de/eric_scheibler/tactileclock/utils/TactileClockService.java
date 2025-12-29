@@ -4,8 +4,6 @@ package de.eric_scheibler.tactileclock.utils;
 import androidx.annotation.RequiresApi;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -35,6 +33,11 @@ import androidx.core.app.ServiceCompat;
 import androidx.core.app.NotificationCompat;
 import android.app.ForegroundServiceStartNotAllowedException;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.media.AudioFocusRequest;
+import android.media.AudioAttributes;
 
 
 public class TactileClockService extends Service {
@@ -45,6 +48,7 @@ public class TactileClockService extends Service {
 
     // actions
     public static final String ACTION_UPDATE_NOTIFICATION = "de.eric_scheibler.tactileclock.action.update_notification";
+    public static final String ACTION_DISABLE_WATCH_FROM_NOTIFICATION = "de.eric_scheibler.tactileclock.action.disableWatchFromNotification";
     public static final String ACTION_VIBRATE_TIME = "de.eric_scheibler.tactileclock.action.vibrate_time";
     public static final String ACTION_VIBRATE_TEST_TIME = "de.eric_scheibler.tactileclock.action.vibrate_test_time";
     public static final String ACTION_VIBRATE_TIME_AND_SET_NEXT_ALARM = "de.eric_scheibler.tactileclock.action.vibrate_time_and_set_next_alarm";
@@ -52,6 +56,7 @@ public class TactileClockService extends Service {
 
     // broadcast responses
     public static final String VIBRATION_FINISHED = "de.eric_scheibler.tactileclock.response.vibration_finished";
+    public static final String UPDATE_WATCH_UI = "de.eric_scheibler.tactileclock.response.update_watch_ui";
 
     // testing
     public static int TEST_HOUR;
@@ -103,6 +108,13 @@ public class TactileClockService extends Service {
                 startForegroundService();
                 if (shouldDestroyService()) {
                     destroyService();
+                }
+
+            } else if (ACTION_DISABLE_WATCH_FROM_NOTIFICATION.equals(intent.getAction())) {
+                if (settingsManagerInstance.isWatchEnabled()) {
+                    settingsManagerInstance.disableWatch();
+                    LocalBroadcastManager.getInstance(TactileClockService.this)
+                        .sendBroadcast(new Intent(UPDATE_WATCH_UI));
                 }
 
             } else if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
@@ -170,9 +182,14 @@ public class TactileClockService extends Service {
                 if (audioManager.isMusicActive()
                         ? settingsManagerInstance.getPlayGTSWhileMusic()
                         : this.isSoundAllowed()) {
-                    MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.pips);
-                    mediaPlayer.setOnCompletionListener(MediaPlayer::release);
-                    mediaPlayer.start();
+                    if (tryToGetAudioFocus()) {
+                        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.pips);
+                        mediaPlayer.setOnCompletionListener(mp -> {
+                            giveUpAudioFocus();
+                            mp.release();
+                        });
+                        mediaPlayer.start();
+                    }
                 }
 
                 // set next alarm
@@ -369,11 +386,23 @@ public class TactileClockService extends Service {
      */
     private static final int NOTIFICATION_ID = 91223;
 
+    public static boolean hasPostNotificationsPermission() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+            ? hasPostNotificationsPermissionForTiramisuAndNewer()
+            : true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    private static boolean hasPostNotificationsPermissionForTiramisuAndNewer() {
+        return ContextCompat.checkSelfPermission(ApplicationInstance.getContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+    }
+
     private Notification getServiceNotification() {
         // launch MainActivity intent
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent, getPendingIntentFlags());
+
         // notification message text
         String notificationMessage;
         if (settingsManagerInstance.isWatchEnabled()) {
@@ -391,8 +420,9 @@ public class TactileClockService extends Service {
                     enabledOrDisabled(settingsManagerInstance.getPowerButtonServiceEnabled()),
                     enabledOrDisabled(settingsManagerInstance.isWatchEnabled()));
         }
-        // return notification
-        return new NotificationCompat.Builder(this)
+
+        // build notification
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
             .setChannelId(ApplicationInstance.NOTIFICATION_CHANNEL_ID)
             .setVisibility(NotificationCompat.VISIBILITY_SECRET)
             .setPriority(NotificationCompat.PRIORITY_LOW)
@@ -401,8 +431,30 @@ public class TactileClockService extends Service {
             .setOngoing(true)
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_launcher)
-            .setContentText(notificationMessage)
-            .build();
+            .setContentText(notificationMessage);
+
+        // add disable watch action
+        if (settingsManagerInstance.isWatchEnabled()) {
+            Intent disableWatchFromNotificationIntent = new Intent(this, TactileClockService.class);
+            disableWatchFromNotificationIntent.setAction(ACTION_DISABLE_WATCH_FROM_NOTIFICATION);
+
+            PendingIntent pDeleteIntent = PendingIntent.getService(
+                    this, 0, disableWatchFromNotificationIntent, getPendingIntentFlags());
+
+            PendingIntent pDisableWatchFromNotificationIntent = PendingIntent.getService(
+                    this, 1, disableWatchFromNotificationIntent, getPendingIntentFlags());
+
+            notificationBuilder
+                .setDeleteIntent(pDeleteIntent)
+                .addAction(
+                        new NotificationCompat.Action.Builder(
+                            R.drawable.ic_stop,
+                            getResources().getString(R.string.serviceNotificationActionStopWatch),
+                            pDisableWatchFromNotificationIntent)
+                        .build());
+        }
+
+        return notificationBuilder.build();
     }
 
     private String enabledOrDisabled(boolean enabled) {
@@ -479,6 +531,40 @@ public class TactileClockService extends Service {
 
     public static boolean isActiveCall(AudioManager audioManager) {
         return audioManager.getMode() != AudioManager.MODE_NORMAL;
+    }
+
+
+    /**
+     * audio focus
+     */
+
+    private boolean tryToGetAudioFocus() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return audioManager.requestAudioFocus(buildAudioFocusRequestForOAndNewer()) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
+        }
+        return true;
+    }
+
+    private void giveUpAudioFocus() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            audioManager.abandonAudioFocusRequest(buildAudioFocusRequestForOAndNewer());
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private AudioFocusRequest buildAudioFocusRequestForOAndNewer() {
+        return new AudioFocusRequest.Builder(
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+            .setAudioAttributes(buildAudioAttributes())
+            .setAcceptsDelayedFocusGain(false)
+            .build();
+    }
+
+    private AudioAttributes buildAudioAttributes() {
+        return new AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .build();
     }
 
 }
