@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+         main activity and fragments
+    -->
+
+    <!-- main activity -->
+    <string name="app_name">Тактильний годинник</string>
+    <!-- shortcuts -->
+    <string name="labelShortcutVibrateTime">Вібросигнал часу</string>
+    <!-- toolbar -->
+    <string name="openNavigationDrawer">Відкрити меню</string>
+    <string name="closeNavigationDrawer">Закрити меню</string>
+    <string name="menuItemSettings">Налаштування</string>
+    <string name="menuItemInfo">Інформація</string>
+    <string name="menuItemTutorial">Довідка</string>
+
+
+    <!-- power button service fragment -->
+    <string name="fragmentPowerButton">Швидкий доступ</string>
+    <string name="buttonEnableService">Увімкнути активацію клавішею живлення</string>
+    <string name="labelPowerButtonFragmentDescription">Для активації вібросигналу поточного часу вимкніть екран вашого пристрою.
+        А потім швидко двічі натисніть клавішу живлення.</string>
+    <string name="labelPowerButtonClickInterval">Інтервал натискання:</string>
+    <string name="buttonPowerButtonLowerSuccessBoundary">Від</string>
+    <string name="buttonPowerButtonUpperSuccessBoundary">До</string>
+    <string name="labelScreenOffOnHeading">Випадкове увімкнення екрана</string>
+    <string name="buttonScreenOffOnDoNothing">Жодних дій</string>
+    <string name="buttonScreenOffOnErrorVibration">Вібросигнал помилки</string>
+    <string name="buttonScreenOffOnVibrateTime">Вібросигнал часу</string>
+    <string name="labelScreenOffOnDescription">Дії програми, якщо екран уже увімкнено,
+        і замість короткочасного увімкнення екрана
+        подвійне натискання кнопки живлення його вимикає та знову вмикає.</string>
+
+    <!-- watch fragment -->
+    <string name="fragmentWatch">Годинник</string>
+    <string name="buttonStartWatch">Увімкнути годинник</string>
+    <string name="labelWatchFragmentDescription">Періодичні вібросигнали поточного часу</string>
+    <string name="labelWatchVibrationOptions">Вібросигнали</string>
+    <string name="buttonEnableVibration">Увімкнути вібросигнали поточного часу</string>
+    <string name="buttonWatchInterval">Інтервал вібросигналів</string>
+    <string name="buttonWatchOnlyVibrateMinutes">Повідомляти тільки хвилини</string>
+    <string name="buttonWatchStartAtNextFullHour">Розпочати з наступної повної години</string>
+    <string name="buttonWatchAnnouncementVibration">Попереджувальний вібросигнал</string>
+    <string name="labelWatchSoundOptions">Звуки</string>
+    <string name="buttonPlayGTS">Відтворювати сигнали точного часу</string>
+    <string name="buttonWatchPlayGTSWhileMusic">Сигнали точного часу під час відтворення музики</string>
+
+    <!-- select integer dialog -->
+    <string name="selectWatchIntervalDialogTitle">Інтервал вібросигналів у хвилинах:</string>
+    <string name="selectPowerButtonLowerSuccessBoundaryDialogTitle">Мінімальний інтервал натискань у мілісекундах:</string>
+    <string name="selectPowerButtonUpperSuccessBoundaryDialogTitle">Максимальний інтервал натискань у мілісекундах:</string>
+    <string name="messageEnteredInvalidValue">Введене значення має бути більше 0</string>
+
+
+    <!--
+         other activities and dialogs
+    -->
+
+    <!-- HelpDialog -->
+    <string name="helpDialogTitle">Довідка</string>
+    <string name="labelApplicationDescription1">Ця програма для операційної системи Android дозволяє визначити поточний час за допомогою вібросигналів, коли екран заблоковано, і ви двічі натискаєте кнопку живлення вашого пристрою.</string>
+    <string name="labelHowItWorksHeading">Як це працює</string>
+    <string name="labelDoubleClickDescription1">Двічі натисніть кнопку живлення. Може знадобитися деякий час для відпрацювання цього способу активації. Натискайте чітко та
+        не поспішаючи. Якщо ви натискатимете надто швидко, то система розпізнає це як одне натискання і просто увімкне екран.</string>
+    <string name="labelVibrationPatternDescription1">Вібросигнал поточного часу формується таким чином:</string>
+    <string name="labelVibrationPatternDescription2">Коротка вібрація відповідає цифрі 1, а довга — цифрі 5. Два
+        представляється двома послідовними короткими вібраціями, 6 — послідовністю однієї довгої та однієї короткої вібрацій і так
+        далі. 0 є виключенням з цього правила і представляється двома довгими вібраціями.</string>
+    <string name="labelTimeFormatExampleHeading">Приклади:</string>
+    <string name="labelTimeFormatExample1">• 01:18 =  . &#160; .  -...</string>
+    <string name="labelTimeFormatExample2">• 02:51 =  .. &#160; -  .</string>
+    <string name="labelTimeFormatExample3">• 10:11 =  .  -- &#160; .  .</string>
+    <string name="labelTimeFormatExample4">• 19:06 =  .  -.... &#160; -.</string>
+    <string name="labelTimeFormatExplanationHeading">Пояснення:</string>
+    <string name="labelTimeFormatExplanation1">Значення поточного часу обробляється цифра за цифрою.</string>
+    <string name="labelTimeFormatExplanation2">Крапка у прикладах означає коротку, а тире — довгу вібрацію.</string>
+    <string name="labelTimeFormatExplanation3">Початкові нулі у значеннях годин та хвилин пропускаються.</string>
+    <string name="labelTimeFormatGapHeading">Паузи:</string>
+    <string name="labelTimeFormatGapDescription">Для спрощення розпізнавання вібросигналів
+        передбачено три види пауз різної тривалості:</string>
+    <string name="labelTimeFormatGap1">• []:     коротка пауза між вібраціями у одній цифрі</string>
+    <string name="labelTimeFormatGap2">• [&#160;]:   середня пауза для розділення двох цифр у значеннях годин і хвилин</string>
+    <string name="labelTimeFormatGap3">• [&#160;&#160;]: довга пауза для розділення значень годин і хвилин</string>
+    <string name="labelAdditionalFeaturesHeading">Додаткові функції</string>
+    <string name="labelAdditionalFeaturesDescription1">• Постійне інформування про поточний час. Програма може автоматично повідомляти час кожні X хвилин або щогодини.</string>
+    <string name="labelAdditionalFeaturesDescription2">• Відтворення сигналів точного часу на початку кожної години, як в ефірі радіостанцій.</string>
+    <string name="labelAdditionalFeaturesDescription3">• Визначення дій програми, якщо ви двічі натиснете кнопку живлення, коли екран
+        увімкнено. Програма може повідомити про помилку, поінформувати про поточний час або просто ігнорувати подібні випадки.</string>
+    <string name="labelAdditionalFeaturesDescription4">• Програма завжди працює, навіть після перезавантаження телефона.</string>
+
+
+    <!-- settings activity -->
+    <string name="settingsActivityTitle">Налаштування</string>
+    <string name="switchRoundMinutes">Округляти значення хвилин до 5</string>
+    <string name="labelHourFormat">Формат часу (12 або 24-годинний)</string>
+    <string name="button12Hours">12-годинний формат</string>
+    <string name="button24Hours">24-годинний формат</string>
+    <string name="labelTimeComponentOrder">Порядок повідомлення про час</string>
+    <string name="buttonHoursMinutes">Спочатку години, потім хвилини</string>
+    <string name="buttonMinutesHours">Спочатку хвилини, потім години</string>
+    <string name="labelVibrationSettings">Налаштування вібрації</string>
+    <string name="switchMaxStrengthVibrations">Вібрація з максимальною інтенсивністю</string>
+    <string name="labelShort">Коротка</string>
+    <string name="labelShortCD">Коротка вібрація</string>
+    <string name="labelLong">Довга</string>
+    <string name="labelLongCD">Довга вібрація</string>
+    <string name="sliderVibrationDurationCD">Тривалість вібрації</string>
+    <string name="labelTestVibrationHeading">Перевірка вібросигналу поточного часу</string>
+    <string name="buttonRefreshTestTime">Оновити час</string>
+    <string name="buttonTestVibration">Перевірити</string>
+
+    <!-- info activity -->
+    <string name="infoActivityTitle">Інформація</string>
+    <string name="labelApplicationVersion">Версія: </string>
+    <string name="labelContactHeading">Контактна інформація:</string>
+    <string name="labelEmailAddress">Електронна пошта: %1$s</string>
+    <string name="labelWebsite">Ця програма безоплатна. Ви можете знайти початковий код на &lt;a href="%1$s"&gt;GitHub&lt;/a&gt;.</string>
+    <string name="labelPrivacyHeading">Конфіденційність</string>
+    <string name="labelPrivacy0">Програма для Android Тактильний годинник не потребує доступу до мережі
+        Всі параметри зберігаються виключно на пристрої та нікому не передаються.</string>
+    <string name="labelPrivacy1">Програма безоплатна та не містить реклами.</string>
+
+    <!-- service -->
+    <string name="serviceNotification">Shortcut: %1$s, Годинник: %2$s</string>
+    <string name="serviceNotificationWatchEnabled">Shortcut: %1$s, Годинник: %2$s (%3$s)</string>
+    <string name="serviceNotificationActionStopWatch">Вимкнути годинник</string>
+
+    <!-- standard messages, which are used in more than one component -->
+    <string name="dialogOK">OK</string>
+    <string name="dialogCancel">Скасувати</string>
+    <string name="dialogEnabled">Увімкнено</string>
+    <string name="dialogDisabled">Вимкнено</string>
+    <string name="warningDndActive">Увімкнено режим \"Не турбувати\".</string>
+    <string name="warningRingerModeSilent">Телефон у режимі \"Без звуку\".</string>
+    <string name="warningExactAlarmPermissionMissing">Неможливо використовувати точні будильники. Будь ласка, перевірте дозволи програми.</string>
+
+    <!--
+         plurals
+    -->
+
+    <plurals
+        name="milliseconds">
+        <item quantity="one">%d мілісекунда</item>
+        <item quantity="few">%d мілісекунди</item>
+        <item quantity="many">%d мілісекунд</item>
+        <item quantity="other">%d мілісекунд</item>
+    </plurals>
+
+    <plurals
+        name="minutes">
+        <item quantity="one">%d хвилина</item>
+        <item quantity="few">%d хвилини</item>
+        <item quantity="many">%d хвилин</item>
+        <item quantity="other">%d хвилин</item>
+    </plurals>
+
+</resources>

@@ -25,7 +25,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 36
-        resConfigs "en", "de", "es"
+        resConfigs "en", "de", "es", "uk"
         multiDexEnabled true
         versionCode 14
         versionName '2.5.1'
