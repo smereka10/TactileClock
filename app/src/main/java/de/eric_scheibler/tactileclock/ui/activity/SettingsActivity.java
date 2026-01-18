@@ -223,17 +223,7 @@ public class SettingsActivity extends AbstractActivity implements TimePickerDial
                 TactileClockService.TEST_HOUR = testHour;
                 TactileClockService.TEST_MINUTE = testMinute;
                 intent.setAction(TactileClockService.ACTION_VIBRATE_TEST_TIME);
-
-                if (Helper.isScreenReaderEnabled()) {
-                    // requires a short delay
-                    // otherwise Talkback consumes the test vibration if Talkbacks vibration feedback is enabled
-                    handler.postDelayed(() -> {
-                        startService(intent);
-                    }, 250);
-
-                } else {
-                    startService(intent);
-                }
+                startService(intent);
             }
         });
     }

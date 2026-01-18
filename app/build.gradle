@@ -1,4 +1,7 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 // get signing properties
 Properties keystoreProperties = new Properties()
@@ -27,8 +30,8 @@ android {
         targetSdkVersion 36
         resConfigs "en", "de", "es", "uk"
         multiDexEnabled true
-        versionCode 14
-        versionName '2.5.1'
+        versionCode 15
+        versionName '2.6.0-b1'
         // project website
         buildConfigField 'String', 'CONTACT_EMAIL_ADDRESS', '"tactile-clock@eric-scheibler.de"'
         buildConfigField 'String', 'PROJECT_WEBSITE', '"https://github.com/scheibler/TactileClock"'
@@ -54,6 +57,16 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
         }
+    }
+
+    compileOptions {
+        // Sets Java compatibility to Java 17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     dependenciesInfo {
@@ -86,6 +99,9 @@ dependencies {
 
     // logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // tasker integration (needs kotlin)
+    implementation 'com.joaomgcd:taskerpluginlibrary:0.4.10'
 }
 
 // Open the APK on your Android Device

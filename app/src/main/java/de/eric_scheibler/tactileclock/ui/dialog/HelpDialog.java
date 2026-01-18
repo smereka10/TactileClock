@@ -105,16 +105,7 @@ public class HelpDialog extends DialogFragment {
                         TactileClockService.TEST_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
                         TactileClockService.TEST_MINUTE = calendar.get(Calendar.MINUTE);
                         intent.setAction(TactileClockService.ACTION_VIBRATE_TEST_TIME);
-
-                        if (Helper.isScreenReaderEnabled()) {
-                            // requires a short delay
-                            // otherwise Talkback consumes the test vibration if Talkbacks vibration feedback is enabled
-                            handler.postDelayed(() -> {
-                                context.startService(intent);
-                            }, 250);
-                        } else {
-                            context.startService(intent);
-                        }
+                        context.startService(intent);
                     }
                 }
             });

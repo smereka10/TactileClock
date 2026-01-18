@@ -54,7 +54,7 @@
             android:parentActivityName=".ui.activity.MainActivity" />
 
         <service
-            android:name="de.eric_scheibler.tactileclock.utils.TactileClockService"
+            android:name=".utils.TactileClockService"
             android:foregroundServiceType="specialUse"
             android:exported="false" >
             <property
@@ -65,12 +65,23 @@
         </service>
 
         <receiver
-            android:name="de.eric_scheibler.tactileclock.utils.ScreenReceiver"
+            android:name=".utils.ScreenReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <!-- tasker plugin integration -->
+
+        <activity
+            android:name=".tasker.VibrateTimeConfigActivity"
+            android:label="@string/labelShortcutVibrateTime"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -117,6 +117,8 @@ public class TactileClockService extends Service {
                         .sendBroadcast(new Intent(UPDATE_WATCH_UI));
                 }
 
+            // next actions were triggered by the user and need an initialization delay (most important for screen reader talkback)
+
             } else if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
                 // vibration will be canceled if screen is turned on while vibrating
                 Helper.cancelVibration();
@@ -134,12 +136,12 @@ public class TactileClockService extends Service {
                         case ERROR_VIBRATION:
                             handler.postDelayed(() -> {
                                 Helper.vibrateOnce(settingsManagerInstance.getLongVibration() * 2);
-                            }, 250);
+                            }, getInitializationDelay());
                             break;
                         case VIBRATE_TIME:
                             handler.postDelayed(() -> {
                                 vibrateTime(false, false, false);
-                            }, 250);
+                            }, getInitializationDelay());
                             break;
                     }
                 }
@@ -153,16 +155,22 @@ public class TactileClockService extends Service {
                         && activationTimeDifference < settingsManagerInstance.getPowerButtonUpperSuccessBoundary()) {
                     // double click detected
                     // screen was turned on and off correctly
-                    // vibrate time (no delay needed because display=off and therefore Talkback doesn't consume the vibration)
+                    // important exception: vibrate time doesn't need a delay here, because display=off and therefore Talkback doesn't consume the vibration
                     vibrateTime(false, false, false);
                 }
                 lastActivation = System.currentTimeMillis();
 
             } else if (ACTION_VIBRATE_TIME.equals(intent.getAction())) {
-                vibrateTime(false, false, false);
+                handler.postDelayed(() -> {
+                    vibrateTime(false, false, false);
+                }, getInitializationDelay());
 
             } else if (ACTION_VIBRATE_TEST_TIME.equals(intent.getAction())) {
-                vibrateTime(false, false, true);
+                handler.postDelayed(() -> {
+                    vibrateTime(false, false, true);
+                }, getInitializationDelay());
+
+            // next actions were triggered by an alarm and need no initialization delay
 
             } else if (ACTION_VIBRATE_TIME_AND_SET_NEXT_ALARM.equals(intent.getAction())) {
                 // vibrate current time
@@ -212,6 +220,12 @@ public class TactileClockService extends Service {
                 destroyService();
             }
         }
+    }
+
+    private long getInitializationDelay() {
+        // requires a short delay
+        // otherwise Talkback consumes the time vibration if Talkbacks vibration feedback is enabled
+        return Helper.isScreenReaderEnabled() ? 250 : 50;
     }
 
     @Override public void onDestroy() {

@@ -1,10 +1,10 @@
 package de.eric_scheibler.tactileclock.ui.activity;
 
-import android.annotation.TargetApi;
+import android.os.Handler;
+import android.os.Looper;
 import android.content.Intent;
 
 
-import android.os.Bundle;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,17 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 
-import timber.log.Timber;
 import de.eric_scheibler.tactileclock.utils.TactileClockService;
 import androidx.core.content.ContextCompat;
 import de.eric_scheibler.tactileclock.utils.ApplicationInstance;
-import android.os.Build;
 import android.content.BroadcastReceiver;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.content.IntentFilter;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 
 
 public class ShortcutActivity extends AppCompatActivity {
@@ -43,20 +39,17 @@ public class ShortcutActivity extends AppCompatActivity {
 
         if (getIntent() != null
                 && TactileClockService.ACTION_VIBRATE_TIME.equals(getIntent().getAction())) {
-            new Handler(Looper.getMainLooper()).postDelayed(
-                    new Runnable() {
-                        @Override public void run() {
-                            sendStartVibrationAction();
-                        }
-                    }, 750l);
-        }
-    }
 
-    private void sendStartVibrationAction() {
-        Intent vibrateTimeIntent = new Intent(this, TactileClockService.class);
-        vibrateTimeIntent.setAction(TactileClockService.ACTION_VIBRATE_TIME);
-        ContextCompat.startForegroundService(
-                ApplicationInstance.getContext(), vibrateTimeIntent);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(() -> {
+                Intent vibrateTimeIntent = new Intent(
+                        ApplicationInstance.getContext(), TactileClockService.class);
+                vibrateTimeIntent.setAction(TactileClockService.ACTION_VIBRATE_TIME);
+                ContextCompat.startForegroundService(
+                        ApplicationInstance.getContext(), vibrateTimeIntent);
+            }, 250);    // extra delay for activity initialization
+
+        }
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
